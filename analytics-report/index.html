@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <title>Cloud Nine - Traffic Insights Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Vesper Theme */
+      --bg: #0A0A0A;
+      --surface1: #111111;
+      --surface2: #181818;
+      --surface3: #1f1f1f;
+      --surface4: #262626;
+      --foreground: #FFFFFF;
+      --muted: #A0A0A0;
+      --dim: #7E7E7E;
+      --accent: #FFC799;
+      --green: #99FFE4;
+      --red: #FF8080;
+    }
+    * { font-family: 'Inter', sans-serif; }
+    body { background: var(--bg); color: var(--foreground); }
+    .card { background: var(--surface2); border: 1px solid var(--surface4); }
+    .card-elevated { background: var(--surface3); }
+    .accent { color: var(--accent); }
+    .text-muted { color: var(--dim); }
+    .text-secondary { color: var(--muted); }
+    .border-subtle { border-color: var(--surface4); }
+    
+    .tab-active { 
+      border-bottom: 2px solid var(--accent); 
+      color: var(--foreground); 
+    }
+    .tab-inactive { 
+      border-bottom: 2px solid transparent; 
+      color: var(--muted); 
+    }
+    .tab-inactive:hover { color: var(--foreground); }
+    
+    .insight-card { border-left: 3px solid var(--accent); }
+    
+    .confidence-confirmed { 
+      background: rgba(153,255,228,0.15); 
+      color: var(--green); 
+    }
+    .confidence-likely { 
+      background: rgba(255,199,153,0.15); 
+      color: var(--accent); 
+    }
+    .confidence-unknown { 
+      background: rgba(167,167,167,0.15); 
+      color: var(--muted); 
+    }
+    .confidence-high { background: rgba(153,255,228,0.15); color: var(--green); }
+    .confidence-medium { background: rgba(255,199,153,0.15); color: var(--accent); }
+    .confidence-low { background: rgba(167,167,167,0.15); color: var(--muted); }
+    
+    .progress-bar { background: var(--surface3); }
+    .progress-fill { background: var(--accent); }
+    
+    .kpi-value { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+    .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .data-table th { background: var(--surface3); font-weight: 500; }
+    .data-table td { border-bottom: 1px solid var(--surface4); }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    
+    .metric-badge { 
+      font-size: 0.65rem; 
+      padding: 0.15rem 0.4rem; 
+      border-radius: 9999px; 
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold">Traffic Insights</h1>
+          <p class="text-secondary text-sm mt-1">Google Analytics 4 · Property 468596321 · Last 30 complete days</p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm text-secondary">Report generated</p>
+          <p class="text-sm font-medium">March 27, 2026</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="card rounded-lg p-5">
+        <p class="kpi-label text-secondary mb-2">Total Sessions</p>
+        <p class="kpi-value">749K</p>
+        <p class="text-xs text-dim mt-1">Feb 25 – Mar 26, 2026</p>
+      </div>
+      <div class="card rounded-lg p-5">
+        <p class="kpi-label text-secondary mb-2">Paid Social</p>
+        <p class="kpi-value">413K<span class="text-sm font-normal text-secondary ml-1">55%</span></p>
+        <p class="text-xs mt-2">
+          <span class="metric-badge confidence-low">0.57% CVR</span>
+          <span class="metric-badge confidence-low ml-1">$0.70 RPV</span>
+        </p>
+      </div>
+      <div class="card rounded-lg p-5">
+        <p class="kpi-label text-secondary mb-2">Organic (All)</p>
+        <p class="kpi-value">109K<span class="text-sm font-normal text-secondary ml-1">14.6%</span></p>
+        <p class="text-xs text-secondary mt-2">Search + Social + Video + Shopping</p>
+      </div>
+      <div class="card rounded-lg p-5">
+        <p class="kpi-label text-secondary mb-2">Direct</p>
+        <p class="kpi-value">72K<span class="text-sm font-normal text-secondary ml-1">9.7%</span></p>
+        <p class="text-xs mt-2">
+          <span class="metric-badge confidence-confirmed">3.29% CVR</span>
+          <span class="metric-badge confidence-confirmed ml-1">$3.87 RPV</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex gap-1 mb-6 border-b border-subtle">
+      <button onclick="showSection('overview')" id="tab-overview" class="px-4 py-3 text-sm font-medium tab-active">Overview</button>
+      <button onclick="showSection('organic')" id="tab-organic" class="px-4 py-3 text-sm font-medium tab-inactive">Organic Search</button>
+      <button onclick="showSection('direct')" id="tab-direct" class="px-4 py-3 text-sm font-medium tab-inactive">Direct & Unassigned</button>
+      <button onclick="showSection('quality')" id="tab-quality" class="px-4 py-3 text-sm font-medium tab-inactive">Channel Quality</button>
+    </nav>
+
+    <!-- Overview Section -->
+    <section id="section-overview" class="space-y-6">
+      
+      <!-- Traffic Mix Chart -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Traffic Mix by Channel</h3>
+          <div class="h-72">
+            <canvas id="trafficMixChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Channel Performance Snapshot</h3>
+          <div class="overflow-x-auto">
+            <table class="data-table w-full text-sm">
+              <thead>
+                <tr>
+                  <th class="text-left p-3 rounded-tl">Channel</th>
+                  <th class="text-right p-3">Sessions</th>
+                  <th class="text-right p-3">Txns</th>
+                  <th class="text-right p-3 rounded-tr">Revenue</th>
+                </tr>
+              </thead>
+              <tbody class="text-secondary">
+                <tr><td class="p-3">Paid Social</td><td class="p-3 text-right">413,183</td><td class="p-3 text-right">2,365</td><td class="p-3 text-right">$289.4K</td></tr>
+                <tr><td class="p-3">Paid Search</td><td class="p-3 text-right">100,051</td><td class="p-3 text-right">2,681</td><td class="p-3 text-right">$320.9K</td></tr>
+                <tr><td class="p-3">Organic Search</td><td class="p-3 text-right">74,631</td><td class="p-3 text-right">1,935</td><td class="p-3 text-right">$227.5K</td></tr>
+                <tr><td class="p-3">Direct</td><td class="p-3 text-right">72,299</td><td class="p-3 text-right">2,378</td><td class="p-3 text-right">$279.9K</td></tr>
+                <tr><td class="p-3 text-dim">Unassigned</td><td class="p-3 text-right text-dim">20,321</td><td class="p-3 text-right text-dim">322</td><td class="p-3 text-right text-dim">$36.8K</td></tr>
+                <tr><td class="p-3 text-dim">Organic Social</td><td class="p-3 text-right text-dim">19,427</td><td class="p-3 text-right text-dim">230</td><td class="p-3 text-right text-dim">$27.1K</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Insights -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">Key Takeaways</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="insight-card card-elevated rounded p-4">
+            <div class="flex items-start gap-3">
+              <span class="metric-badge confidence-confirmed">Confirmed</span>
+              <div>
+                <p class="font-medium">Organic Search is Google-dominated</p>
+                <p class="text-sm text-secondary mt-1">94.5% of organic search comes from Google. This is primarily brand + product-intent traffic, not generic SEO.</p>
+              </div>
+            </div>
+          </div>
+          <div class="insight-card card-elevated rounded p-4">
+            <div class="flex items-start gap-3">
+              <span class="metric-badge confidence-likely">Likely</span>
+              <div>
+                <p class="font-medium">Direct is mostly dark traffic</p>
+                <p class="text-sm text-secondary mt-1">Only 19% lands on homepage. Most direct traffic goes to product/collection pages—unattributed sharing, not typed URLs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="insight-card card-elevated rounded p-4">
+            <div class="flex items-start gap-3">
+              <span class="metric-badge confidence-confirmed">Confirmed</span>
+              <div>
+                <p class="font-medium">Paid vs Organic attribution is clean</p>
+                <p class="text-sm text-secondary mt-1">Google CPC and Google organic are properly separated in GA4. No evidence of overlap.</p>
+              </div>
+            </div>
+          </div>
+          <div class="insight-card card-elevated rounded p-4">
+            <div class="flex items-start gap-3">
+              <span class="metric-badge confidence-confirmed">Confirmed</span>
+              <div>
+                <p class="font-medium">Quality varies dramatically by channel</p>
+                <p class="text-sm text-secondary mt-1">Direct converts at 3.29%, Organic at 2.59%, Paid Search at 2.68%, Paid Social at only 0.57%.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Organic Search Section -->
+    <section id="section-organic" class="space-y-6 hidden">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Organic Search Sources</h3>
+          <div class="h-64">
+            <canvas id="organicSourcesChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="card rounded-lg p-6 lg:col-span-2">
+          <h3 class="text-lg font-medium mb-4">Top Organic Search Sources</h3>
+          <div class="overflow-x-auto">
+            <table class="data-table w-full text-sm">
+              <thead>
+                <tr>
+                  <th class="text-left p-3">Source</th>
+                  <th class="text-right p-3">Sessions</th>
+                  <th class="text-right p-3">Share</th>
+                  <th class="text-right p-3">Revenue</th>
+                  <th class="text-right p-3 rounded-tr">RPV</th>
+                </tr>
+              </thead>
+              <tbody class="text-secondary">
+                <tr><td class="p-3">google / organic</td><td class="p-3 text-right">70,557</td><td class="p-3 text-right">94.5%</td><td class="p-3 text-right">$199.2K</td><td class="p-3 text-right">$2.82</td></tr>
+                <tr><td class="p-3">bing / organic</td><td class="p-3 text-right">2,532</td><td class="p-3 text-right">3.4%</td><td class="p-3 text-right">$16.4K</td><td class="p-3 text-right">$6.49</td></tr>
+                <tr><td class="p-3">yahoo / organic</td><td class="p-3 text-right">835</td><td class="p-3 text-right">1.1%</td><td class="p-3 text-right">$7.2K</td><td class="p-3 text-right">$8.61</td></tr>
+                <tr><td class="p-3">duckduckgo / organic</td><td class="p-3 text-right">522</td><td class="p-3 text-right">0.7%</td><td class="p-3 text-right">$2.9K</td><td class="p-3 text-right">$5.51</td></tr>
+                <tr><td class="p-3 text-dim">ecosia.org / organic</td><td class="p-3 text-right text-dim">181</td><td class="p-3 text-right text-dim">0.2%</td><td class="p-3 text-right text-dim">$276</td><td class="p-3 text-right text-dim">$1.52</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Landing Pages -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">Organic Search Landing Pages</h3>
+        <p class="text-secondary text-sm mb-4">Homepage dominates (55%), but product pages monetize better.</p>
+        <div class="overflow-x-auto">
+          <table class="data-table w-full text-sm">
+            <thead>
+              <tr>
+                <th class="text-left p-3">Landing Page</th>
+                <th class="text-right p-3">Sessions</th>
+                <th class="text-right p-3">Share</th>
+                <th class="text-right p-3">Txn Rate</th>
+                <th class="text-right p-3 rounded-tr">RPV</th>
+              </tr>
+            </thead>
+            <tbody class="text-secondary">
+              <tr><td class="p-3">/ (Homepage)</td><td class="p-3 text-right">40,930</td><td class="p-3 text-right">54.8%</td><td class="p-3 text-right">2.59%</td><td class="p-3 text-right">$3.21</td></tr>
+              <tr><td class="p-3">/products/cloud-hoodie</td><td class="p-3 text-right">7,192</td><td class="p-3 text-right">9.6%</td><td class="p-3 text-right">1.90%</td><td class="p-3 text-right">$2.10</td></tr>
+              <tr><td class="p-3">/collections/all</td><td class="p-3 text-right">5,522</td><td class="p-3 text-right">7.4%</td><td class="p-3 text-right">3.35%</td><td class="p-3 text-right">$3.22</td></tr>
+              <tr><td class="p-3">/products/grounding-hoodie</td><td class="p-3 text-right">4,235</td><td class="p-3 text-right">5.7%</td><td class="p-3 text-right">3.21%</td><td class="p-3 text-right">$3.73</td></tr>
+              <tr><td class="p-3">/products/cloud-kids-hoodie</td><td class="p-3 text-right">3,756</td><td class="p-3 text-right">5.0%</td><td class="p-3 text-right">3.30%</td><td class="p-3 text-right">$3.08</td></tr>
+              <tr><td class="p-3 text-dim">/products/grounding-kids-hoodie</td><td class="p-3 text-right text-dim">1,112</td><td class="p-3 text-right text-dim">1.5%</td><td class="p-3 text-right text-dim">2.58%</td><td class="p-3 text-right text-dim">$4.72</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Insight -->
+      <div class="card rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <span class="metric-badge confidence-likely">Interpretation</span>
+          <div>
+            <p class="font-medium">This isn't generic SEO traffic</p>
+            <p class="text-secondary text-sm mt-2">The homepage-heavy landing pattern + strong monetization on product pages suggests <strong style="color: var(--accent);">brand + product-intent search</strong>, not pure non-branded SEO. Google is surfacing the store for queries like "Cloud Nine Hoodie" and related terms. To validate, you'd need <strong style="color: var(--green);">Search Console</strong> data for branded vs non-branded query breakdown.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Direct & Unassigned Section -->
+    <section id="section-direct" class="space-y-6 hidden">
+      
+      <!-- Direct Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Direct Traffic Profile</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Mobile</span>
+                <span class="text-secondary">86%</span>
+              </div>
+              <div class="progress-bar h-2 rounded-full">
+                <div class="progress-fill h-2 rounded-full" style="width: 86%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>New Users</span>
+                <span class="text-secondary">70%</span>
+              </div>
+              <div class="progress-bar h-2 rounded-full">
+                <div class="progress-fill h-2 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>US Traffic</span>
+                <span class="text-secondary">62%</span>
+              </div>
+              <div class="progress-bar h-2 rounded-full">
+                <div class="progress-fill h-2 rounded-full" style="width: 62%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-subtle">
+            <p class="text-sm text-secondary">Top Countries: US (45.1K), UK (10.2K), Canada (7.1K), Australia (3.0K)</p>
+          </div>
+        </div>
+
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Direct Landing Pages</h3>
+          <p class="text-secondary text-sm mb-4">Only 19% land on homepage—this isn't typed-in traffic.</p>
+          <div class="h-56">
+            <canvas id="directLandingChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unassigned -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">Unassigned Traffic (20.3K sessions)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <p class="text-sm text-secondary mb-4">GA couldn't classify these sessions. Mostly tracking issues, not a real channel.</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-secondary">(not set) source/medium</span>
+                <span>20,163 sessions (99%)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-secondary">chatgpt.com</span>
+                <span>97 sessions</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-secondary">Klaviyo</span>
+                <span>37 sessions</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-secondary">perplexity</span>
+                <span>11 sessions</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-elevated rounded p-4">
+            <p class="font-medium text-sm mb-2">Why this matters</p>
+            <p class="text-secondary text-sm">60% of Unassigned has no landing page recorded. This is likely privacy-protected traffic, app-empty referrers, or measurement gaps—not a channel to optimize.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dark Traffic Explanation -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">What "Direct" Really Means</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="card-elevated rounded p-4">
+            <p class="font-medium text-sm mb-2" style="color: var(--accent);">Not Typed URLs</p>
+            <p class="text-secondary text-sm">Only 19% land on homepage. Most direct traffic lands on deep product pages—this is unattributed clicks.</p>
+          </div>
+          <div class="card-elevated rounded p-4">
+            <p class="font-medium text-sm mb-2" style="color: var(--accent);">Likely Sources</p>
+            <p class="text-secondary text-sm">SMS links, app traffic, DMs, email (untagged), bookmarked pages, privacy-stripped referrers.</p>
+          </div>
+          <div class="card-elevated rounded p-4">
+            <p class="font-medium text-sm mb-2" style="color: var(--accent);">New User Signal</p>
+            <p class="text-secondary text-sm">70% new users—but they're landing deep. This suggests shared links from ads, influencers, or organic reach.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Channel Quality Section -->
+    <section id="section-quality" class="space-y-6 hidden">
+      
+      <!-- Quality Chart -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">Channel Quality Comparison</h3>
+        <div class="h-80">
+          <canvas id="qualityChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Device Mix -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Device Mix by Channel</h3>
+          <div class="h-64">
+            <canvas id="deviceChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="card rounded-lg p-6">
+          <h3 class="text-lg font-medium mb-4">Quality Metrics</h3>
+          <div class="overflow-x-auto">
+            <table class="data-table w-full text-sm">
+              <thead>
+                <tr>
+                  <th class="text-left p-3">Channel</th>
+                  <th class="text-right p-3">Txn Rate</th>
+                  <th class="text-right p-3 rounded-tr">RPV</th>
+                </tr>
+              </thead>
+              <tbody class="text-secondary">
+                <tr><td class="p-3">Email</td><td class="p-3 text-right">4.30%</td><td class="p-3 text-right">$5.34</td></tr>
+                <tr><td class="p-3">Organic Shopping</td><td class="p-3 text-right">3.81%</td><td class="p-3 text-right">$5.17</td></tr>
+                <tr><td class="p-3 font-medium" style="color: var(--foreground);">Direct</td><td class="p-3 text-right font-medium">3.29%</td><td class="p-3 text-right font-medium">$3.87</td></tr>
+                <tr><td class="p-3">Paid Search</td><td class="p-3 text-right">2.68%</td><td class="p-3 text-right">$3.21</td></tr>
+                <tr><td class="p-3 font-medium" style="color: var(--foreground);">Organic Search</td><td class="p-3 text-right font-medium">2.59%</td><td class="p-3 text-right font-medium">$3.05</td></tr>
+                <tr><td class="p-3">Referral</td><td class="p-3 text-right">1.88%</td><td class="p-3 text-right">$2.18</td></tr>
+                <tr><td class="p-3">Organic Social</td><td class="p-3 text-right">1.18%</td><td class="p-3 text-right">$1.39</td></tr>
+                <tr><td class="p-3 text-dim">Paid Social</td><td class="p-3 text-right text-dim">0.57%</td><td class="p-3 text-right text-dim">$0.70</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Insight -->
+      <div class="card rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <span class="metric-badge confidence-confirmed">Insight</span>
+          <div>
+            <p class="font-medium">Volume ≠ Quality</p>
+            <p class="text-secondary text-sm mt-2">Paid Social drives 55% of sessions but converts at only 0.57%. Direct and Organic Search convert at 3–4× that rate. If you're optimizing for revenue per session, focus on retention and lifetime value from high-quality channels—not just volume.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Confidence -->
+      <div class="card rounded-lg p-6">
+        <h3 class="text-lg font-medium mb-4">Data Confidence</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="font-medium mb-2" style="color: var(--green);">Confirmed</p>
+            <ul class="text-secondary space-y-1">
+              <li>• Traffic mix and channel breakdowns</li>
+              <li>• Organic Search source breakdown</li>
+              <li>• Channel quality metrics (CVR, RPV)</li>
+              <li>• Landing page performance</li>
+              <li>• Device and geography splits</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-medium mb-2" style="color: var(--accent);">Likely (needs validation)</p>
+            <ul class="text-secondary space-y-1">
+              <li>• Direct = dark traffic hypothesis</li>
+              <li>• Organic Search = mostly branded</li>
+              <li>• Paid Social creating organic lift</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-medium mb-2" style="color: var(--muted);">Unknown (cannot answer)</p>
+            <ul class="text-secondary space-y-1">
+              <li>• Exact search queries</li>
+              <li>• Branded vs non-branded split</li>
+              <li>• Causal attribution from ads to organic</li>
+              <li>• Why Unassigned has no landing page</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-6 border-t border-subtle">
+      <div class="flex justify-between items-center text-sm text-secondary">
+        <p>Data from Google Analytics 4 · Property 468596321 · Feb 25–Mar 26, 2026</p>
+        <p>Generated by Cartie Traffic Insights</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Tab switching
+    function showSection(section) {
+      document.querySelectorAll('[id^="section-"]').forEach(el => el.classList.add('hidden'));
+      document.getElementById('section-' + section).classList.remove('hidden');
+      document.querySelectorAll('[id^="tab-"]').forEach(el => {
+        el.classList.remove('tab-active');
+        el.classList.add('tab-inactive');
+      });
+      document.getElementById('tab-' + section).classList.remove('tab-inactive');
+      document.getElementById('tab-' + section).classList.add('tab-active');
+    }
+
+    // Chart.js defaults
+    Chart.defaults.color = '#A0A0A0';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.08)';
+
+    // Vesper accent colors
+    const vesperAccent = '#FFC799';
+    const vesperGreen = '#99FFE4';
+    const vesperRed = '#FF8080';
+    const vesperSurface = '#262626';
+    const vesperSurface3 = '#1f1f1f';
+
+    // Traffic Mix Chart
+    const trafficMixCtx = document.getElementById('trafficMixChart').getContext('2d');
+    new Chart(trafficMixCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Paid Social', 'Paid Search', 'Organic Search', 'Direct', 'Other'],
+        datasets: [{
+          data: [413183, 100051, 74631, 72299, 88982],
+          backgroundColor: [vesperAccent, vesperSurface, vesperGreen, '#3b82f6', vesperSurface3],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } }
+        }
+      }
+    });
+
+    // Organic Sources Chart
+    const organicSourcesCtx = document.getElementById('organicSourcesChart').getContext('2d');
+    new Chart(organicSourcesCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Google', 'Bing', 'Yahoo', 'DuckDuckGo', 'Other'],
+        datasets: [{
+          data: [70557, 2532, 835, 522, 185],
+          backgroundColor: ['#4285f4', '#00897b', '#6001d2', '#de5833', vesperSurface3],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 15, usePointStyle: true } }
+        }
+      }
+    });
+
+    // Direct Landing Chart
+    const directLandingCtx = document.getElementById('directLandingChart').getContext('2d');
+    new Chart(directLandingCtx, {
+      type: 'bar',
+      data: {
+        labels: ['/', '/collections/all', '/cloud-hoodie', '/grounding-hoodie', '/cloud-kids'],
+        datasets: [{
+          label: 'Sessions',
+          data: [13720, 11157, 10766, 9752, 7308],
+          backgroundColor: vesperAccent,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // Quality Chart
+    const qualityCtx = document.getElementById('qualityChart').getContext('2d');
+    new Chart(qualityCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Email', 'Org Shopping', 'Direct', 'Paid Search', 'Org Search', 'Org Social', 'Paid Social'],
+        datasets: [
+          {
+            label: 'Transaction Rate %',
+            data: [4.30, 3.81, 3.29, 2.68, 2.59, 1.18, 0.57],
+            backgroundColor: vesperAccent,
+            borderWidth: 0
+          },
+          {
+            label: 'RPV $',
+            data: [5.34, 5.17, 3.87, 3.21, 3.05, 1.39, 0.70],
+            backgroundColor: vesperSurface,
+            borderWidth: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // Device Chart
+    const deviceCtx = document.getElementById('deviceChart').getContext('2d');
+    new Chart(deviceCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Paid Social', 'Paid Search', 'Organic Search', 'Direct'],
+        datasets: [
+          { label: 'Mobile %', data: [96, 82, 76, 85], backgroundColor: vesperAccent, borderWidth: 0 },
+          { label: 'Desktop %', data: [1, 16, 21, 13], backgroundColor: vesperSurface, borderWidth: 0 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true, max: 100 } }
+      }
+    });
+  </script>
+</body>
+</html>
