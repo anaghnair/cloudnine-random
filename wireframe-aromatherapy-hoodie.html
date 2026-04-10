@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <title>Aromatherapy Hoodie - Product Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    .wf-placeholder { background: #e5e5e5; border: 2px dashed #000; }
+    .wf-box { border: 2px solid #000; background: #fff; }
+    .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 8px; }
+    details summary { cursor: pointer; list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary .disclosure-icon { transform: rotate(45deg); }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    @media (max-width: 640px) {
+      .snap-x { -webkit-overflow-scrolling: touch; }
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-black leading-normal">
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="border-b border-black py-5 sticky top-0 bg-white z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between">
+        <!-- Left: Logo -->
+        <div class="font-bold text-lg">CLOUD NINE</div>
+        
+        <!-- Center: Navigation (desktop) -->
+        <div class="hidden md:flex gap-10 text-sm">
+          <span class="cursor-pointer hover:underline">Shop</span>
+          <span class="cursor-pointer hover:underline">About</span>
+          <span class="cursor-pointer hover:underline">Science</span>
+          <span class="cursor-pointer hover:underline">Reviews</span>
+        </div>
+        
+        <!-- Right: Cart + Mobile Menu -->
+        <div class="flex items-center gap-4">
+          <div class="border-2 border-black px-5 py-2 font-medium text-sm cursor-pointer hover:bg-black hover:text-white transition-colors">Cart (0)</div>
+          <button class="md:hidden flex flex-col gap-1.5" id="mobile-menu-btn" aria-label="Menu">
+            <span class="block w-6 h-0.5 bg-black"></span>
+            <span class="block w-6 h-0.5 bg-black"></span>
+            <span class="block w-6 h-0.5 bg-black"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div class="hidden md:hidden flex-col gap-4 pt-4 pb-2 text-sm" id="mobile-menu">
+        <span class="block py-2 cursor-pointer">Shop</span>
+        <span class="block py-2 cursor-pointer">About</span>
+        <span class="block py-2 cursor-pointer">Science</span>
+        <span class="block py-2 cursor-pointer">Reviews</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== SECTION 1: ABOVE THE FOLD ===================== -->
+  <section class="py-6 sm:py-10 lg:py-16" id="atf-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <div class="flex flex-col lg:grid lg:grid-cols-[55%_45%] lg:gap-16 gap-8">
+
+        <!-- LEFT: Image Gallery -->
+        <div>
+          <div class="wf-placeholder flex items-center justify-center text-center h-72 sm:h-96 lg:h-[600px] mb-4">
+            [Main Product Image]<br>600 x 600<br>Featured Image
+          </div>
+        </div>
+
+        <!-- RIGHT: Product Details -->
+        <div>
+          <span class="inline-block border border-black px-3 py-1 text-[11px] uppercase tracking-widest mb-3">New Release</span>
+          <h1 class="text-2xl sm:text-3xl lg:text-[32px] leading-tight mb-2">The Aromatherapy Hoodie</h1>
+          <p class="text-xs text-gray-500 mb-2">From the makers of the Cloud Nine Hoodie, trusted by 500,000+ people</p>
+          <div class="text-2xl sm:text-3xl lg:text-[28px] font-semibold mb-4">$89.00</div>
+
+          <p class="text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
+            A soft hoodie with two hidden calm tools: a stress ball built into the front pocket (squeeze anytime, anywhere) and a discreet scent pocket in the hood for all-day aromatherapy. Nobody knows but you.
+          </p>
+
+          <!-- ===== Scent Selector ===== -->
+          <div class="mb-5" id="scent-selector">
+            <div class="mb-3">
+              <div class="text-xs font-semibold uppercase tracking-wide mb-1">Choose Your Scent</div>
+              <div class="text-[11px] text-gray-500 italic">Not sure? Click "Learn more" to compare</div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              
+              <!-- Lavender -->
+              <div class="scent-card border-2 border-black p-3 sm:p-4 text-center cursor-pointer bg-black text-white" data-scent="lavender" data-selected="true">
+                <strong class="text-sm">Lavender</strong>
+                <div class="text-[10px] uppercase tracking-wide text-gray-300 mt-1">Calming / Anti-anxiety</div>
+                <div class="text-[9px] text-gray-400 mt-1.5 italic">Evenings, high-stress days, sleep</div>
+                <button class="scent-learn-more mt-2 text-[10px] underline text-gray-400 hover:text-white">Learn more</button>
+              </div>
+
+              <!-- Rose -->
+              <div class="scent-card border-2 border-black p-3 sm:p-4 text-center cursor-pointer hover:bg-gray-50" data-scent="rose">
+                <strong class="text-sm">Rose</strong>
+                <div class="text-[10px] uppercase tracking-wide text-gray-500 mt-1">Comfort / Grounding</div>
+                <div class="text-[9px] text-gray-400 mt-1.5 italic">Overwhelming days, emotional reset</div>
+                <button class="scent-learn-more mt-2 text-[10px] underline text-gray-500 hover:text-black">Learn more</button>
+              </div>
+
+              <!-- Jasmine -->
+              <div class="scent-card border-2 border-black p-3 sm:p-4 text-center cursor-pointer hover:bg-gray-50" data-scent="jasmine">
+                <strong class="text-sm">Jasmine</strong>
+                <div class="text-[10px] uppercase tracking-wide text-gray-500 mt-1">Uplifting / Focus</div>
+                <div class="text-[9px] text-gray-400 mt-1.5 italic">Work, creative projects, afternoons</div>
+                <button class="scent-learn-more mt-2 text-[10px] underline text-gray-500 hover:text-black">Learn more</button>
+              </div>
+
+              <!-- Citrus -->
+              <div class="scent-card border-2 border-black p-3 sm:p-4 text-center cursor-pointer hover:bg-gray-50" data-scent="citrus">
+                <strong class="text-sm">Citrus</strong>
+                <div class="text-[10px] uppercase tracking-wide text-gray-500 mt-1">Energizing / Alert</div>
+                <div class="text-[9px] text-gray-400 mt-1.5 italic">Mornings, workouts, long drives</div>
+                <button class="scent-learn-more mt-2 text-[10px] underline text-gray-500 hover:text-black">Learn more</button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Scent Modal -->
+          <div id="scent-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white max-w-lg w-full max-h-[90vh] overflow-y-auto border-2 border-black">
+              <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                  <h3 id="modal-scent-name" class="text-xl font-semibold">Lavender</h3>
+                  <button id="modal-close" class="text-2xl leading-none hover:text-gray-500">&times;</button>
+                </div>
+                <p id="modal-scent-tagline" class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Calming / Anti-anxiety</p>
+                <div id="modal-scent-content" class="space-y-3 text-sm text-gray-700">
+                  <!-- Content populated by JS -->
+                </div>
+                <button id="modal-select-btn" class="w-full mt-6 bg-black text-white py-3 font-semibold hover:bg-gray-800 transition-colors">
+                  Select This Scent
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Size Selector + Fit Guide ===== -->
+          <div class="mb-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="text-xs font-semibold uppercase tracking-wide">Size</div>
+              <button class="text-xs underline text-gray-500 hover:text-black" id="fit-guide-toggle">Fit Guide</button>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer">XS</div>
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer">S</div>
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer bg-black text-white">M</div>
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer">L</div>
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer">XL</div>
+              <div class="border-2 border-black px-4 py-2.5 text-sm cursor-pointer">XXL</div>
+            </div>
+            <div class="hidden mt-4 border-2 border-black p-4 sm:p-5 bg-gray-50" id="fit-guide-panel">
+              <div class="mb-3">
+                <span class="inline-block border border-black text-xs px-3 py-1 font-medium">True to Size</span>
+                <p class="text-xs text-gray-600 mt-2">Order your usual size. Relaxed fit with room for layering.</p>
+              </div>
+              <table class="w-full text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-black">
+                    <th class="text-left py-2 pr-4 font-semibold">Size</th>
+                    <th class="text-left py-2 pr-4 font-semibold">Chest (in)</th>
+                    <th class="text-left py-2 pr-4 font-semibold">Length (in)</th>
+                    <th class="text-left py-2 font-semibold">Fits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-200"><td class="py-2 pr-4">XS</td><td class="py-2 pr-4">34–36</td><td class="py-2 pr-4">26</td><td class="py-2">US 0–2</td></tr>
+                  <tr class="border-b border-gray-200"><td class="py-2 pr-4">S</td><td class="py-2 pr-4">36–38</td><td class="py-2 pr-4">27</td><td class="py-2">US 4–6</td></tr>
+                  <tr class="border-b border-gray-200"><td class="py-2 pr-4">M</td><td class="py-2 pr-4">38–40</td><td class="py-2 pr-4">28</td><td class="py-2">US 8–10</td></tr>
+                  <tr class="border-b border-gray-200"><td class="py-2 pr-4">L</td><td class="py-2 pr-4">42–44</td><td class="py-2 pr-4">29</td><td class="py-2">US 12–14</td></tr>
+                  <tr class="border-b border-gray-200"><td class="py-2 pr-4">XL</td><td class="py-2 pr-4">46–48</td><td class="py-2 pr-4">30</td><td class="py-2">US 16–18</td></tr>
+                  <tr><td class="py-2 pr-4">XXL</td><td class="py-2 pr-4">50–52</td><td class="py-2 pr-4">31</td><td class="py-2">US 20–22</td></tr>
+                </tbody>
+              </table>
+              <p class="text-xs text-gray-500 mt-3">Model is 5'10", wearing size M. For an oversized fit, size up one.</p>
+            </div>
+          </div>
+
+          <!-- ===== Color Selector ===== -->
+          <div class="mb-5">
+            <div class="text-xs font-semibold uppercase tracking-wide mb-3">Color: Heather Gray</div>
+            <div class="flex gap-3 flex-wrap">
+              <div class="flex flex-col items-center gap-1.5 cursor-pointer">
+                <div class="w-10 h-10 rounded-full border-2 border-black bg-neutral-800 ring-2 ring-black ring-offset-2"></div>
+                <span class="text-[10px] text-gray-600">Charcoal</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 cursor-pointer">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-gray-200"></div>
+                <span class="text-[10px] text-gray-600">Heather Gray</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 cursor-pointer">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-stone-200"></div>
+                <span class="text-[10px] text-gray-600">Sand</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 cursor-pointer">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-green-200"></div>
+                <span class="text-[10px] text-gray-600">Sage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Quantity + ATC ===== -->
+          <div class="flex gap-3 sm:gap-4 mb-5">
+            <div class="border-2 border-black flex items-center">
+              <button class="w-10 h-12 bg-transparent border-none text-lg cursor-pointer">−</button>
+              <input type="text" value="1" class="w-10 text-center border-none text-base">
+              <button class="w-10 h-12 bg-transparent border-none text-lg cursor-pointer">+</button>
+            </div>
+            <button class="flex-1 bg-black text-white border-none py-3 sm:py-4 px-6 sm:px-8 text-sm sm:text-base font-semibold cursor-pointer hover:bg-gray-800 transition-colors">Add to Cart</button>
+          </div>
+
+          <!-- ===== Trust Badges ===== -->
+          <div class="flex flex-wrap gap-x-5 gap-y-2 py-4 border-t border-b border-gray-200 mb-4">
+            <div class="flex items-center gap-2 text-xs text-gray-600">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>30-day wear-it guarantee</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-gray-600">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Ships in 1-2 days</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-gray-600">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span>Free shipping $75+</span>
+            </div>
+          </div>
+
+          <!-- ===== Progressive Disclosure Panels ===== -->
+          <div class="space-y-0 border-t border-gray-200">
+
+            <!-- Panel: What's Included & Specs -->
+            <details class="group border-b border-gray-200">
+              <summary class="flex items-center justify-between py-3 text-xs font-semibold uppercase tracking-wide">
+                <span>What's Included & Specs</span>
+                <span class="disclosure-icon transition-transform text-lg leading-none">+</span>
+              </summary>
+              <div class="pb-4 text-xs text-gray-700 space-y-2">
+                <p><strong class="text-black">Includes:</strong> 1 Hoodie, 2 Scent Discs (your choice), Built-in Stress Ball, Resealable storage pouch</p>
+                <p><strong class="text-black">Material:</strong> 80% Cotton / 20% Polyester, 360gsm</p>
+                <p><strong class="text-black">Care:</strong> Machine wash cold, remove disc first. Air dry.</p>
+                <p><strong class="text-black">Hood pocket:</strong> A discreet compartment along the side of the hood. Not visible when worn, barely perceptible to touch.</p>
+                <p><strong class="text-black">Stress ball:</strong> A squishable ball built into the front pocket. Squeeze it discreetly anytime for instant stress relief. No one can see it, no one knows you're using it.
+              </div>
+            </details>
+
+            <!-- Panel: Shipping & Returns -->
+            <details class="group border-b border-gray-200">
+              <summary class="flex items-center justify-between py-3 text-xs font-semibold uppercase tracking-wide">
+                <span>Shipping & Returns</span>
+                <span class="disclosure-icon transition-transform text-lg leading-none">+</span>
+              </summary>
+              <div class="pb-4 text-xs text-gray-700 space-y-2">
+                <p><strong class="text-black">Free shipping</strong> on orders over $75. Ships within 1-2 business days.</p>
+                <p><strong class="text-black">30-day returns</strong> on the hoodie, no questions asked. Unopened discs can be returned for a full refund.</p>
+                <p>Opened/used discs can't be returned for hygiene reasons.</p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 2: HOW IT WORKS ===================== -->
+  <section class="py-16 sm:py-20 lg:py-28 bg-gray-50 border-t border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">As easy as putting on a hoodie</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-4">How it works</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
+        <div class="text-center p-6 sm:p-6 border-2 border-black bg-white">
+          <div class="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-5 font-bold text-lg">1</div>
+          <h3 class="text-lg font-semibold mb-2">Unseal your disc</h3>
+          <p class="text-sm text-gray-700 mb-3">Your scent discs arrive fresh in airtight pouches. Open when you're ready.</p>
+          <div class="wf-placeholder h-28 flex items-center justify-center text-xs text-gray-500">[Disc unsealing photo]</div>
+        </div>
+        <div class="text-center p-6 sm:p-6 border-2 border-black bg-white">
+          <div class="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-5 font-bold text-lg">2</div>
+          <h3 class="text-lg font-semibold mb-2">Slide into the pocket</h3>
+          <p class="text-sm text-gray-700 mb-3">A discreet compartment along the hood's edge. Takes 5 seconds. Invisible to everyone else.</p>
+          <div class="wf-placeholder h-28 flex items-center justify-center text-xs text-gray-500">[Pocket insertion photo]</div>
+        </div>
+        <div class="text-center p-6 sm:p-6 border-2 border-black bg-white">
+          <div class="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-5 font-bold text-lg">3</div>
+          <h3 class="text-lg font-semibold mb-2">Inhale calm</h3>
+          <p class="text-sm text-gray-700 mb-3">The scent releases as you move. Breathe through your nose—the aromatherapy works instantly.</p>
+          <div class="wf-placeholder h-28 flex items-center justify-center text-xs text-gray-500">[Wearing hoodie photo]</div>
+        </div>
+        <div class="text-center p-6 sm:p-6 border-2 border-black bg-white">
+          <div class="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-5 font-bold text-lg">4</div>
+          <h3 class="text-lg font-semibold mb-2">Squeeze anytime</h3>
+          <p class="text-sm text-gray-700 mb-3">The built-in stress ball is always there. Discreetly squeeze whenever you need it. No one knows.</p>
+          <div class="wf-placeholder h-28 flex items-center justify-center text-xs text-gray-500">[Stress ball in pocket photo]</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 3: WHY IT WORKS ===================== -->
+  <section class="bg-black text-white py-16 sm:py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">Science smells nice</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-4">Why it works</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">Two proven stress-relief tools, working together. Aromatherapy calms your nervous system. Tactile pressure grounds you in the moment.</p>
+      </div>
+
+      <!-- Dual mechanism -->
+      <div class="max-w-4xl mx-auto mb-12 lg:mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="border border-gray-600 p-6">
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-3">Scent</div>
+            <h3 class="text-lg font-semibold mb-3">Direct to the brain</h3>
+            <p class="text-sm text-gray-400 mb-4">Scent molecules travel through your olfactory system to the limbic system—the brain's emotion and stress center. This triggers measurable changes in cortisol and serotonin within seconds.</p>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Amygdala</div>
+                <div class="text-[10px] text-gray-500">Emotions</div>
+              </div>
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Hippocampus</div>
+                <div class="text-[10px] text-gray-500">Memory</div>
+              </div>
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Hypothalamus</div>
+                <div class="text-[10px] text-gray-500">Hormones</div>
+              </div>
+            </div>
+          </div>
+          <div class="border border-gray-600 p-6">
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-3">Touch</div>
+            <h3 class="text-lg font-semibold mb-3">Pressure relief</h3>
+            <p class="text-sm text-gray-400 mb-4">Squeezing the stress ball activates pressure receptors in your palm that signal safety to your nervous system. Similar to deep pressure therapy, but invisible and always available.</p>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Proprioception</div>
+                <div class="text-[10px] text-gray-500">Body awareness</div>
+              </div>
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Grounding</div>
+                <div class="text-[10px] text-gray-500">Present moment</div>
+              </div>
+              <div class="border border-gray-700 p-2">
+                <div class="text-xs font-semibold">Bilateral</div>
+                <div class="text-[10px] text-gray-500">Both hands</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 lg:mb-16">
+        <div class="stat-card border-2 border-white py-10 px-6 text-center cursor-pointer hover:bg-gray-900 transition-colors" data-study="cortisol">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">69%</div>
+          <div class="text-xs sm:text-sm text-gray-400 leading-relaxed">Reduction in cortisol with lavender exposure</div>
+          <div class="text-[10px] text-gray-500 mt-2 underline">Click for study details</div>
+        </div>
+        <div class="stat-card border-2 border-white py-10 px-6 text-center cursor-pointer hover:bg-gray-900 transition-colors" data-study="meta">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">21</div>
+          <div class="text-xs sm:text-sm text-gray-400 leading-relaxed">Peer-reviewed studies in meta-analysis</div>
+          <div class="text-[10px] text-gray-500 mt-2 underline">Click for study details</div>
+        </div>
+        <div class="stat-card border-2 border-white py-10 px-6 text-center cursor-pointer hover:bg-gray-900 transition-colors" data-study="participants">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">1,500+</div>
+          <div class="text-xs sm:text-sm text-gray-400 leading-relaxed">Participants across clinical trials</div>
+          <div class="text-[10px] text-gray-500 mt-2 underline">Click for study details</div>
+        </div>
+        <div class="border-2 border-white py-10 px-6 text-center">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">0</div>
+          <div class="text-xs sm:text-sm text-gray-400 leading-relaxed">Skin contact. Non-toxic materials only.</div>
+        </div>
+      </div>
+
+      <!-- Study Detail Modal -->
+      <div id="study-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-black border-2 border-white max-w-md w-full p-6 relative">
+          <button id="study-modal-close" class="absolute top-4 right-4 text-2xl leading-none hover:text-gray-400">&times;</button>
+          <div id="study-modal-content" class="text-white">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Safety integrated -->
+      <div class="max-w-3xl mx-auto flex flex-wrap justify-center gap-2 mb-10">
+        <span class="text-xs text-gray-500 border border-gray-600 px-3 py-1.5">Non-Toxic</span>
+        <span class="text-xs text-gray-500 border border-gray-600 px-3 py-1.5">No Skin Contact</span>
+        <span class="text-xs text-gray-500 border border-gray-600 px-3 py-1.5">No Synthetic Fragrances</span>
+        <span class="text-xs text-gray-500 border border-gray-600 px-3 py-1.5">No Phthalates</span>
+        <span class="text-xs text-gray-500 border border-gray-600 px-3 py-1.5">Pre-Infused Discs</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 4: HOW WE MADE THIS ===================== -->
+  <section class="py-10 sm:py-12 lg:py-16 border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">From idea to your hoodie</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-4">How we made this</h2>
+      </div>
+
+      <!-- Story Timeline -->
+      <div class="mb-16 lg:mb-24">
+        
+        <!-- Timeline cards -->
+        <div class="flex items-stretch gap-4 lg:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 sm:px-0">
+            
+            <div class="flex-shrink-0 w-72 sm:w-80 snap-center">
+              <div class="bg-white border-2 border-black h-full">
+                <div class="wf-placeholder h-40 flex items-center justify-center text-xs text-gray-500 border-b-2 border-black">[Image: Problem concept]</div>
+                <div class="p-5">
+                  <div class="w-16 h-16 bg-black text-white flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span class="text-2xl font-bold">1</span>
+                  </div>
+                  <h4 class="font-semibold text-center mb-2">The problem</h4>
+                  <p class="text-xs text-gray-600 text-center">Most stress tools signal "I'm managing something." Fidget toys, diffusers, meditation apps—they all make it obvious. We wanted something you could just <em>wear</em>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-shrink-0 w-72 sm:w-80 snap-center">
+              <div class="bg-white border-2 border-black h-full">
+                <div class="wf-placeholder h-40 flex items-center justify-center text-xs text-gray-500 border-b-2 border-black">[Image: Pocket prototype]</div>
+                <div class="p-5">
+                  <div class="w-16 h-16 bg-black text-white flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span class="text-2xl font-bold">2</span>
+                  </div>
+                  <h4 class="font-semibold text-center mb-2">Getting the pocket right</h4>
+                  <p class="text-xs text-gray-600 text-center">The challenge: a compartment that releases scent but doesn't stain, leak, or feel like a ziplock bag. Inner layer: sealed and leak-proof. Outer layer: micro-mesh. The disc sits between them.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-shrink-0 w-72 sm:w-80 snap-center">
+              <div class="bg-white border-2 border-black h-full">
+                <div class="wf-placeholder h-40 flex items-center justify-center text-xs text-gray-500 border-b-2 border-black">[Image: Scent selection]</div>
+                <div class="p-5">
+                  <div class="w-16 h-16 bg-black text-white flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span class="text-2xl font-bold">3</span>
+                  </div>
+                  <h4 class="font-semibold text-center mb-2">Science, not vibes</h4>
+                  <p class="text-xs text-gray-600 text-center">We picked scents because of peer-reviewed evidence. Lavender for anxiety. Rose for emotional regulation. Jasmine for focus. Citrus for energy. The four with the strongest evidence base.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-shrink-0 w-72 sm:w-80 snap-center">
+              <div class="bg-white border-2 border-black h-full">
+                <div class="wf-placeholder h-40 flex items-center justify-center text-xs text-gray-500 border-b-2 border-black">[Image: Original hoodie]</div>
+                <div class="p-5">
+                  <div class="w-16 h-16 bg-black text-white flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span class="text-2xl font-bold">4</span>
+                  </div>
+                  <h4 class="font-semibold text-center mb-2">Building on trust</h4>
+                  <p class="text-xs text-gray-600 text-center">500,000 people already own our original stress ball hoodie. This is the next evolution: adding aromatherapy to the same hoodie people trust for everyday calm.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-shrink-0 w-72 sm:w-80 snap-center">
+              <div class="bg-white border-2 border-black h-full relative">
+                <div class="absolute -top-3 -right-3 bg-black text-white text-xs font-bold px-3 py-1 z-20">NOW</div>
+                <div class="wf-placeholder h-40 flex items-center justify-center text-xs text-gray-500 border-b-2 border-black">[Image: Final product]</div>
+                <div class="p-5">
+                  <div class="w-16 h-16 bg-black text-white flex items-center justify-center mx-auto mb-4 relative z-10">
+                    <span class="text-2xl font-bold">5</span>
+                  </div>
+                  <h4 class="font-semibold text-center mb-2">Real feedback</h4>
+                  <p class="text-xs text-gray-600 text-center">Early testers asked for storage (resealable pouch included) and gentler scent release on day one. We adjusted the mesh density based on that feedback.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+          <!-- Scroll hint -->
+          <p class="text-center text-[10px] text-gray-400 mt-4 lg:hidden">← Swipe to explore →</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 6: WHAT PEOPLE ARE SAYING ===================== -->
+  <section class="py-16 sm:py-20 lg:py-28 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">Real reviews from beta testers</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-2">What people are saying</h2>
+      </div>
+
+      <!-- Individual reviews -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <div class="bg-white border-2 border-black p-5 sm:p-6">
+          <div class="mb-3 text-base">★★★★★</div>
+          <p class="text-sm mb-4 leading-relaxed">"I was skeptical about the scent pocket but it's genuinely subtle. I wear this to work and nobody knows. The lavender really does help during stressful meetings."</p>
+          <p class="text-sm font-semibold">Sarah M.</p>
+          <p class="text-xs text-gray-500 mb-2">Lavender · Office worker</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] border border-gray-300 text-gray-500 px-2 py-0.5">3 weeks daily wear</span>
+            <span class="text-[10px] border border-gray-300 text-gray-500 px-2 py-0.5">True to size</span>
+          </div>
+        </div>
+        <div class="bg-white border-2 border-black p-5 sm:p-6">
+          <div class="mb-3 text-base">★★★★★</div>
+          <p class="text-sm mb-4 leading-relaxed">"The stress ball has been my go-to for anxiety for years. Adding the scent pocket is genius—I can literally feel my shoulders drop when I put this on."</p>
+          <p class="text-sm font-semibold">Alex K.</p>
+          <p class="text-xs text-gray-500 mb-2">Citrus · Daily commuter</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] border border-gray-300 text-gray-500 px-2 py-0.5">2 weeks daily wear</span>
+          </div>
+        </div>
+        <div class="bg-white border-2 border-black p-5 sm:p-6">
+          <div class="mb-3 text-base">★★★★★</div>
+          <p class="text-sm mb-4 leading-relaxed">"I have the original Cloud Nine hoodie with just the stress ball. This is a huge upgrade. The jasmine scent + stress ball combo is my new work-from-home uniform."</p>
+          <p class="text-sm font-semibold">Jordan T.</p>
+          <p class="text-xs text-gray-500 mb-2">Jasmine · Remote worker</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] border border-gray-300 text-gray-500 px-2 py-0.5">3+ weeks daily wear</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- More quotes strip -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="border border-gray-200 p-4 bg-white">
+          <p class="text-xs text-gray-600 leading-relaxed mb-2">"The pocket is invisible. Nobody at my office noticed for weeks."</p>
+          <p class="text-xs font-semibold">Beta Tester · Rose</p>
+        </div>
+        <div class="border border-gray-200 p-4 bg-white">
+          <p class="text-xs text-gray-600 leading-relaxed mb-2">"I switch between citrus for mornings and lavender for evenings. Both tools help me stay focused."</p>
+          <p class="text-xs font-semibold">Beta Tester · Citrus & Lavender</p>
+        </div>
+        <div class="border border-gray-200 p-4 bg-white">
+          <p class="text-xs text-gray-600 leading-relaxed mb-2">"Wore it during a long shift. No one smelled it. But I definitely felt calmer."</p>
+          <p class="text-xs font-semibold">Beta Tester · Lavender</p>
+        </div>
+        <div class="border border-gray-200 p-4 bg-white">
+          <p class="text-xs text-gray-600 leading-relaxed mb-2">"The stress ball alone is worth it. The scent is a bonus."</p>
+          <p class="text-xs font-semibold">Beta Tester · Jasmine</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 7: BUILT FOR DAILY WEAR ===================== -->
+  <section class="py-16 sm:py-20 lg:py-28 border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">Designed to last</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-4">Built for daily wear</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <div class="border-2 border-black p-5 sm:p-7 flex gap-4 sm:gap-5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 border-2 border-black flex-shrink-0 wf-placeholder"></div>
+          <div>
+            <h4 class="text-sm sm:text-base font-semibold mb-1">Dual-Layer Pocket</h4>
+            <p class="text-xs sm:text-sm text-gray-700">A discreet compartment along the side of the hood. Inner layer is leak-proof. Outer mesh layer releases scent close to you. No staining, no shifting.</p>
+          </div>
+        </div>
+        <div class="border-2 border-black p-5 sm:p-7 flex gap-4 sm:gap-5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 border-2 border-black flex-shrink-0 wf-placeholder"></div>
+          <div>
+            <h4 class="text-sm sm:text-base font-semibold mb-1">Zero Skin Contact</h4>
+            <p class="text-xs sm:text-sm text-gray-700">The disc sits behind a mesh barrier. No essential oils touch your skin. Non-toxic materials throughout.</p>
+          </div>
+        </div>
+        <div class="border-2 border-black p-5 sm:p-7 flex gap-4 sm:gap-5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 border-2 border-black flex-shrink-0 wf-placeholder"></div>
+          <div>
+            <h4 class="text-sm sm:text-base font-semibold mb-1">Built-In Stress Ball</h4>
+            <p class="text-xs sm:text-sm text-gray-700">Same stress ball from the original Cloud Nine Hoodie, built into the front pocket. Now paired with aromatherapy.</p>
+          </div>
+        </div>
+        <div class="border-2 border-black p-5 sm:p-7 flex gap-4 sm:gap-5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 border-2 border-black flex-shrink-0 wf-placeholder"></div>
+          <div>
+            <h4 class="text-sm sm:text-base font-semibold mb-1">Fully Washable</h4>
+            <p class="text-xs sm:text-sm text-gray-700">Pull the disc out, machine wash cold, air dry. Designed to last years, not months.</p>
+          </div>
+        </div>
+        <div class="border-2 border-black p-5 sm:p-7 flex gap-4 sm:gap-5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 border-2 border-black flex-shrink-0 wf-placeholder"></div>
+          <div>
+            <h4 class="text-sm sm:text-base font-semibold mb-1">Resealable Storage Pouch Included</h4>
+            <p class="text-xs sm:text-sm text-gray-700">Store the disc in its airtight pouch when you're not wearing the hoodie to extend scent life significantly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 8: FAQ ===================== -->
+  <section class="py-16 sm:py-20 lg:py-28 border-t border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12 lg:mb-16">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-3">Quick answers</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-[32px]">Questions you might have</h2>
+      </div>
+      <div class="max-w-3xl mx-auto space-y-3">
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>What is the Aromatherapy Hoodie?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">A hoodie that looks normal but secretly helps you stay calm. A hidden pocket in the hood holds a scented disc that releases a subtle, soothing scent only you can really smell. Includes the same built-in stress ball as our original hoodie.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Will other people smell it?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">The scent is designed to stay close to the wearer and not project heavily. It's subtle and personal. People would need to be very close to detect it.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>How long does each disc last?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">Each scent disc typically lasts around 2–3 weeks depending on environmental factors and usage. You can extend the life by putting the disc back in its resealable pouch when you're not wearing the hoodie.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Can I switch scents? Will they mix?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">The pocket material is non-absorbent, so trace transfer is minimal. For a clean switch, we recommend waiting until the current disc has faded before inserting a new scent.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Is it safe for sensitive skin?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">The scent disc does not come into direct contact with the skin. There is a mesh barrier between the disc and the wearer. If you have sensitivities to specific essential oil compounds (e.g., linalool, geraniol, limonene), check our full ingredients list above the scent selector. We recommend wearing for 1–2 hours initially and removing if you experience any headache or irritation.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Is the pocket noticeable when wearing?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">The compartment is designed to be small and discreet. It runs along the side of the hood and is not visible from the outside. It's barely perceptible to touch.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>What if the scent is too strong?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">Sensitivity can vary. If the scent feels too strong, you can leave the disc out in the open for a day or two before inserting it to reduce the intensity.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Can I wash the hoodie?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">Yes, fully washable. Remove the scent disc first, then machine wash cold and air dry.</div>
+        </details>
+        <details class="group border-2 border-black">
+          <summary class="p-5 sm:p-6 flex justify-between items-center font-medium">
+            <span>Does it still have the stress ball?</span>
+            <span class="disclosure-icon transition-transform text-xl">+</span>
+          </summary>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-[15px] text-gray-700 leading-relaxed">Yes. The Aromatherapy Hoodie includes the same built-in stress ball as the original Cloud Nine Hoodie, plus the new scent pocket in the hood.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 9: STICKY ATC ===================== -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-black py-3 sm:py-4 transform translate-y-full transition-transform duration-300 z-50" id="sticky-atc">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-3 sm:gap-4">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <div class="wf-placeholder w-10 h-10 sm:w-[50px] sm:h-[50px] border border-black flex-shrink-0"></div>
+        <div class="min-w-0">
+          <div class="text-xs sm:text-sm truncate max-w-[100px] sm:max-w-none">Aromatherapy Hoodie, Lavender / M / Charcoal</div>
+          <div class="text-base sm:text-lg font-semibold">$89.00</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('scent-selector').scrollIntoView({behavior: 'smooth', block: 'center'})" class="bg-black text-white border-none px-5 sm:px-8 py-2.5 sm:py-3 font-semibold text-sm sm:text-base whitespace-nowrap cursor-pointer">Select Scent & Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 10: FOOTER ===================== -->
+  <footer class="py-12 sm:py-16 lg:py-20 border-t border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 lg:gap-10">
+        <div class="col-span-2 lg:col-span-1">
+          <div class="font-bold text-lg mb-4">CLOUD NINE</div>
+          <p class="text-sm text-gray-700">Wearable calm for stressful days.</p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-widest mb-4">Shop</h4>
+          <ul class="list-none text-sm text-gray-700 space-y-2">
+            <li>Hoodies</li>
+            <li>Joggers</li>
+            <li>Gift Cards</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-widest mb-4">Help</h4>
+          <ul class="list-none text-sm text-gray-700 space-y-2">
+            <li>FAQ</li>
+            <li>Shipping</li>
+            <li>Returns</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="hidden lg:block">
+          <h4 class="text-xs uppercase tracking-widest mb-4">Company</h4>
+          <ul class="list-none text-sm text-gray-700 space-y-2">
+            <li>About</li>
+            <li>Science</li>
+            <li>Blog</li>
+            <li>Privacy</li>
+          </ul>
+        </div>
+        <div class="lg:hidden">
+          <h4 class="text-xs uppercase tracking-widest mb-4">Company</h4>
+          <ul class="list-none text-sm text-gray-700 space-y-2">
+            <li>About</li>
+            <li>Science</li>
+            <li>Blog</li>
+            <li>Privacy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+
+    // Fit guide toggle
+    const fitGuideBtn = document.getElementById('fit-guide-toggle');
+    const fitGuidePanel = document.getElementById('fit-guide-panel');
+    if (fitGuideBtn && fitGuidePanel) {
+      fitGuideBtn.addEventListener('click', () => { fitGuidePanel.classList.toggle('hidden'); });
+    }
+
+    // Sticky ATC
+    const stickyAtc = document.getElementById('sticky-atc');
+    const atfSection = document.getElementById('atf-section');
+    if (stickyAtc && atfSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          stickyAtc.style.transform = entry.isIntersecting ? 'translateY(100%)' : 'translateY(0)';
+        });
+      }, { threshold: 0 });
+      observer.observe(atfSection);
+    }
+
+    // Scent data
+    const scentData = {
+      lavender: {
+        name: 'Lavender',
+        tagline: 'Calming / Anti-anxiety',
+        bestFor: 'Evenings, high-stress days, sleep',
+        benefits: 'Reduces anxiety and stress levels. Improves sleep quality and duration. Promotes muscle relaxation and mental calmness.',
+        compounds: 'Linalool (≤35%), Linalyl acetate (≤45%)',
+        research: 'One of the most extensively studied essential oils, with evidence supporting its ability to reduce nervous system activity and improve sleep patterns.',
+        ingredients: 'Lavandula angustifolia. No synthetic fragrances. No phthalates. No parabens. Non-toxic.',
+        allergenNote: 'Because the disc never touches skin directly, the risk of contact dermatitis is effectively zero. If you have sensitivities to specific compounds listed above, consult your physician before use.'
+      },
+      rose: {
+        name: 'Rose',
+        tagline: 'Comfort / Grounding',
+        bestFor: 'Overwhelming days, emotional reset',
+        benefits: 'Reduces psychological stress and anxiety. Enhances emotional stability. Promotes feelings of comfort and safety.',
+        compounds: 'Citronellol (≤45%), Geraniol (≤25%)',
+        research: 'Rose oil has shown effectiveness in lowering anxiety levels and improving emotional well-being, particularly in high-stress conditions.',
+        ingredients: 'Rosa damascena. No synthetic fragrances. No phthalates. No parabens. Non-toxic.',
+        allergenNote: 'Because the disc never touches skin directly, the risk of contact dermatitis is effectively zero. If you have sensitivities to specific compounds listed above, consult your physician before use.'
+      },
+      jasmine: {
+        name: 'Jasmine',
+        tagline: 'Uplifting / Focus',
+        bestFor: 'Work, creative projects, afternoons',
+        benefits: 'Improves mood and alertness without jitters. Reduces fatigue. Enhances confidence and emotional openness.',
+        compounds: 'Benzyl acetate (≤25%), Indole (≤3%), Linalool (≤15%)',
+        research: 'Unlike sedative oils, jasmine provides a stimulating yet calming effect, making it suitable for daytime use.',
+        ingredients: 'Jasminum officinale. No synthetic fragrances. No phthalates. No parabens. Non-toxic.',
+        allergenNote: 'Because the disc never touches skin directly, the risk of contact dermatitis is effectively zero. If you have sensitivities to specific compounds listed above, consult your physician before use.'
+      },
+      citrus: {
+        name: 'Citrus',
+        tagline: 'Energizing / Alert',
+        bestFor: 'Mornings, workouts, long drives',
+        benefits: 'Boosts energy and alertness. Enhances focus and concentration. Reduces mental fatigue. Promotes positive mood.',
+        compounds: 'Limonene (≤95%), Myrcene (≤2%), Linalool (≤1%)',
+        research: 'Citrus oils are associated with increased serotonin and dopamine activity, contributing to improved mood and motivation.',
+        ingredients: 'Citrus blend. No synthetic fragrances. No phthalates. No parabens. Non-toxic.',
+        allergenNote: 'Because the disc never touches skin directly, the risk of contact dermatitis is effectively zero. If you have sensitivities to specific compounds listed above, consult your physician before use.'
+      }
+    };
+
+    // Scent modal functionality
+    const modal = document.getElementById('scent-modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalSelectBtn = document.getElementById('modal-select-btn');
+    const modalScentName = document.getElementById('modal-scent-name');
+    const modalScentTagline = document.getElementById('modal-scent-tagline');
+    const modalScentContent = document.getElementById('modal-scent-content');
+    const scentCards = document.querySelectorAll('.scent-card');
+    let currentScent = 'lavender';
+
+    function openModal(scentKey) {
+      const data = scentData[scentKey];
+      currentScent = scentKey;
+      modalScentName.textContent = data.name;
+      modalScentTagline.textContent = data.tagline;
+      modalScentContent.innerHTML = `
+        <p><strong>Best for:</strong> ${data.bestFor}</p>
+        <p>${data.benefits}</p>
+        <p class="text-gray-500">Key compounds: ${data.compounds}</p>
+        <p class="text-[12px] text-gray-500 italic">${data.research}</p>
+        <details class="mt-4 border-t border-gray-200 pt-3">
+          <summary class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide cursor-pointer">
+            <span>Full Ingredients & Allergens</span>
+            <span class="text-lg leading-none transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div class="pt-3 text-xs text-gray-600 space-y-2">
+            <p>${data.ingredients}</p>
+            <p class="text-gray-500">${data.allergenNote} We recommend wearing for 1–2 hours initially and removing if you experience any headache or irritation.</p>
+          </div>
+        </details>
+      `;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function selectScent(scentKey) {
+      scentCards.forEach(card => {
+        const isSelected = card.dataset.scent === scentKey;
+        card.dataset.selected = isSelected ? 'true' : 'false';
+        
+        if (isSelected) {
+          card.classList.add('bg-black', 'text-white');
+          card.classList.remove('hover:bg-gray-50');
+          card.querySelector('.text-gray-500').classList.replace('text-gray-500', 'text-gray-300');
+          const learnMore = card.querySelector('.scent-learn-more');
+          learnMore.classList.remove('text-gray-500', 'hover:text-black');
+          learnMore.classList.add('text-gray-400', 'hover:text-white');
+        } else {
+          card.classList.remove('bg-black', 'text-white');
+          card.classList.add('hover:bg-gray-50');
+          card.querySelector('.text-gray-300')?.classList.replace('text-gray-300', 'text-gray-500');
+          const learnMore = card.querySelector('.scent-learn-more');
+          learnMore.classList.remove('text-gray-400', 'hover:text-white');
+          learnMore.classList.add('text-gray-500', 'hover:text-black');
+        }
+      });
+      closeModal();
+    }
+
+    // Learn more buttons
+    scentCards.forEach(card => {
+      const learnMoreBtn = card.querySelector('.scent-learn-more');
+      learnMoreBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal(card.dataset.scent);
+      });
+    });
+
+    // Close modal
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Select from modal
+    modalSelectBtn.addEventListener('click', () => {
+      selectScent(currentScent);
+    });
+
+    // Click card to select directly
+    scentCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('scent-learn-more')) {
+          selectScent(card.dataset.scent);
+        }
+      });
+    });
+
+    // Study detail modal
+    const studyModal = document.getElementById('study-modal');
+    const studyModalClose = document.getElementById('study-modal-close');
+    const studyModalContent = document.getElementById('study-modal-content');
+    const statCards = document.querySelectorAll('.stat-card');
+
+    const studyData = {
+      cortisol: {
+        title: '69% Cortisol Reduction',
+        study: 'Pre-Surgical Anxiety Study',
+        details: 'Patients exposed to lavender aroma before surgery experienced significant decreases in anxiety scores and up to 69% reduction in cortisol (stress hormone) levels.',
+        source: 'PubMed',
+        link: 'https://pubmed.ncbi.nlm.nih.gov/27563324/',
+        pmid: 'PMID: 27563324'
+      },
+      meta: {
+        title: '21 Studies Meta-Analysis',
+        study: 'Systematic Review of Lavender Aromatherapy',
+        details: 'Combined data from 21 peer-reviewed studies found a statistically significant decrease in stress levels after lavender use. This represents the strongest form of clinical evidence.',
+        source: 'ScienceDirect',
+        link: 'https://www.sciencedirect.com/science/article/pii/S0965229922000346',
+        pmid: 'Complementary Therapies in Clinical Practice, 2022'
+      },
+      participants: {
+        title: '1,500+ Participants',
+        study: 'Across Multiple Clinical Trials',
+        details: 'Over 1,500 participants across 21 peer-reviewed studies showed consistent, measurable stress reduction with lavender aromatherapy exposure.',
+        source: 'Meta-Analysis',
+        link: 'https://www.sciencedirect.com/science/article/pii/S0965229922000346',
+        pmid: '21 studies, 1,500+ participants'
+      }
+    };
+
+    function openStudyModal(studyKey) {
+      const data = studyData[studyKey];
+      studyModalContent.innerHTML = `
+        <h3 class="text-lg font-semibold mb-1">${data.title}</h3>
+        <p class="text-xs text-gray-400 mb-4">${data.study}</p>
+        <p class="text-sm text-gray-300 mb-4">${data.details}</p>
+        <div class="border-t border-gray-600 pt-3">
+          <p class="text-xs text-gray-500 mb-1">Source: ${data.source}</p>
+          <p class="text-xs text-gray-500 mb-2">${data.pmid}</p>
+          <a href="${data.link}" target="_blank" class="text-xs text-white underline hover:text-gray-300">View study →</a>
+        </div>
+      `;
+      studyModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeStudyModal() {
+      studyModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    statCards.forEach(card => {
+      card.addEventListener('click', () => {
+        openStudyModal(card.dataset.study);
+      });
+    });
+
+    studyModalClose.addEventListener('click', closeStudyModal);
+    studyModal.addEventListener('click', (e) => {
+      if (e.target === studyModal) closeStudyModal();
+    });
+  </script>
+
+</body>
+</html>
