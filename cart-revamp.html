@@ -50,6 +50,10 @@
         box-sizing: border-box;
       }
 
+      html {
+        font-size: 14px;
+      }
+
       html,
       body {
         margin: 0;
@@ -260,7 +264,7 @@
 
       .cart-title {
         margin: 0;
-        font-size: 16px;
+        font-size: 1.143rem;
         line-height: 1;
         font-weight: 600;
         letter-spacing: -.2px;
@@ -283,8 +287,9 @@
 
       .cart-body {
         flex: 1;
+        min-height: 0;
         overflow: auto;
-        padding: 12px 20px 0;
+        padding: 12px 20px 20px;
       }
 
       .bundle-card {
@@ -345,7 +350,7 @@
 
       .title {
         margin: 0 0 6px;
-        font-size: 15px;
+        font-size: 1.071rem;
         line-height: 1.2;
         font-weight: 700;
         letter-spacing: -.2px;
@@ -353,7 +358,7 @@
 
             .meta-value {
         color: var(--color-text);
-        font-size: 13px;
+        font-size: 0.929rem;
         font-weight: 400;
         line-height: 1.3;
         margin-bottom: 4px;
@@ -376,7 +381,7 @@
         border: 0;
         background: transparent;
         font-family: 'Poppins', sans-serif;
-        font-size: 13px;
+        font-size: 0.929rem;
         font-weight: 600;
         color: var(--color-text);
       }
@@ -546,7 +551,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 13px;
+        font-size: 0.929rem;
         font-weight: 400;
         color: var(--color-text-muted);
         cursor: pointer;
@@ -571,12 +576,16 @@
 
       .footer-meta {
         text-align: center;
-        font-size: 11px;
+        font-size: 0.786rem;
         color: var(--color-text-faint);
         line-height: 1.3;
       }
 
       .cart-footer {
+        position: sticky;
+        bottom: 0;
+        background: var(--color-surface);
+        z-index: 3;
         padding: 16px 20px 20px;
       }
 
@@ -591,7 +600,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 13px;
+        font-size: 0.929rem;
         margin-bottom: 8px;
       }
 
@@ -669,7 +678,7 @@
         gap: 4px;
         background: var(--color-primary-light);
         color: var(--color-primary-dark);
-        font-size: 11px;
+        font-size: 0.786rem;
         font-weight: 600;
         padding: 2px 6px;
         border-radius: 4px;
@@ -698,7 +707,7 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        font-size: 12px;
+        font-size: 0.857rem;
         font-weight: 600;
         color: #00a864;
         margin-top: 8px;
@@ -725,7 +734,7 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        font-size: 12px;
+        font-size: 0.857rem;
         font-weight: 600;
         color: var(--color-text);
       }
@@ -736,14 +745,14 @@
       }
 
       .testimonial-quote {
-        font-size: 12px;
+        font-size: 0.857rem;
         color: var(--color-text-muted);
         line-height: 1.4;
         font-style: italic;
       }
 
       .verified-badge {
-        font-size: 10px;
+        font-size: 0.714rem;
         font-weight: 600;
         color: #00a864;
         background: rgba(0, 166, 100, 0.08);
@@ -763,7 +772,7 @@
         background: var(--color-primary);
         color: var(--color-surface);
         font-family: 'Poppins', sans-serif;
-        font-size: 15px;
+        font-size: 1.071rem;
         line-height: 1;
         font-weight: 700;
         margin-bottom: 8px;
@@ -795,7 +804,7 @@
         .cart {
           position: relative;
           width: 100%;
-          height: auto;
+          height: 100vh;
           min-height: 100vh;
         }
       }
