@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+
+    <!--
+      Keep this page out of search results.
+      This is page-level protection and does not make the page private.
+    -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <title>Cart Revamp V2</title>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.10/dist/dotlottie-wc.js" type="module"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+      :root {
+        /* Primary palette - 7 core colors + shades */
+        --color-primary: #2f8deb;
+        --color-primary-light: #e8f4fd;
+        --color-primary-dark: #1a3c5c;
+
+        --color-accent: #c4799e;
+        --color-accent-light: #eadbe2;
+
+        --color-text: #111827;
+        --color-text-muted: #64748b;
+        --color-text-faint: #94a3b8;
+        
+        --color-border: #e2e8f0;
+        --color-surface: #ffffff;
+        --color-bg: #f1f5f9;
+
+        --overlay: rgba(0, 0, 0, 0.44);
+
+        /* Design tokens */
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-pill: 999px;
+        --weight-normal: 400;
+        --weight-semibold: 600;
+        --weight-bold: 700;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 14px;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: 'Poppins', sans-serif;
+        background: var(--color-text);
+        color: var(--color-text);
+      }
+
+      body {
+        padding: 0;
+      }
+
+      /*
+        Full scene wrapper
+        ------------------
+        We want this to feel like the cart is opened over the live storefront,
+        not a floating isolated white page.
+      */
+      .scene {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0;
+        background: var(--color-bg);
+        box-shadow: none;
+      }
+
+      .promo-bar {
+        height: 46px;
+        background: var(--color-accent-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .promo-pill {
+        background: var(--color-accent);
+        color: var(--color-surface);
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .page {
+        position: absolute;
+        inset: 46px 0 0 0;
+        padding: 26px 34px 34px;
+      }
+
+      .page::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--overlay);
+        pointer-events: none;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 0;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 34px;
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      .page-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 34px;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: -1px;
+      }
+
+      .page-icons {
+        display: flex;
+        gap: 18px;
+        font-size: 25px;
+      }
+
+      .page-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 26px;
+        height: calc(100% - 70px);
+        position: relative;
+        z-index: 0;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-content: start;
+      }
+
+      .gallery img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        background: var(--color-border);
+      }
+
+      .gallery .hero {
+        height: 430px;
+      }
+
+      .gallery .detail {
+        height: 320px;
+      }
+
+      .pdp {
+        padding-top: 32px;
+      }
+
+      .review-chip,
+      .quote-chip {
+        display: inline-flex;
+        align-items: center;
+        background: var(--color-surface);
+        border-radius: 999px;
+        padding: 10px 16px;
+        margin-bottom: 12px;
+      }
+
+      .review-chip {
+        border: 2px solid var(--color-accent-light);
+        color: var(--color-accent);
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .quote-chip {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .pdp h1 {
+        margin: 16px 0 12px;
+        font-size: 64px;
+        line-height: .98;
+        font-weight: 600;
+        letter-spacing: -2px;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .old {
+        color: var(--color-text-muted);
+        text-decoration: line-through;
+        font-size: 25px;
+      }
+
+      .new {
+        font-size: 36px;
+        font-weight: 600;
+      }
+
+      .sale {
+        background: var(--color-primary-light);
+        border-radius: 999px;
+        padding: 7px 14px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .cart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 560px;
+        height: 100%;
+        background: var(--color-surface);
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+        border-left: 1px solid var(--color-border);
+      }
+
+      .cart-header {
+        height: 56px;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: relative;
+      }
+
+      .cart-title {
+        margin: 0;
+        font-size: 1.143rem;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: -.2px;
+        color: var(--color-text);
+      }
+
+      .close {
+        position: static;
+        transform: none;
+        width: 32px;
+        height: 32px;
+        border: 0;
+        background: transparent;
+        color: var(--color-text);
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .cart-body {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 12px 20px 20px;
+      }
+
+      .bundle-card {
+        background: transparent;
+        border: none;
+        border-radius: 12px;
+        padding: 8px 0;
+        position: relative;
+      }
+
+      .bundle-card + .bundle-card {
+        margin-top: 12px;
+      }
+
+      .gifts-thumbs {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-right: 6px;
+      }
+
+      .gifts-thumbs img {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        border: 2px solid var(--color-surface);
+        object-fit: cover;
+        margin-left: -6px;
+      }
+
+      .gifts-thumbs img:first-child {
+        margin-left: 0;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 84px 1fr auto;
+        column-gap: 12px;
+        align-items: stretch;
+      }
+
+      .row > div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 84px;
+      }
+
+      .thumb {
+        width: 84px;
+        height: 84px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--color-bg);
+      }
+
+      .thumb img,
+      .shipping-thumb img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .title {
+        margin: 0 0 2px;
+        font-size: 1.143rem;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -.2px;
+      }
+
+            .meta-value {
+        color: var(--color-text);
+        font-size: 0.929rem;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-bottom: 2px;
+      }
+
+      .qty {
+        display: inline-grid;
+        grid-template-columns: 28px 34px 28px;
+        height: 32px;
+        border: 1.5px solid var(--color-border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--color-surface);
+      }
+
+      .qty button,
+      .qty span {
+        display: grid;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.929rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      .qty .mid {
+        border-left: 1.5px solid var(--color-border);
+        border-right: 1.5px solid var(--color-border);
+      }
+
+      .qty-col {
+        display: flex;
+        align-items: flex-start;
+        padding-top: 2px;
+      }
+
+      .price-row-inline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 0;
+        margin-bottom: 2px;
+      }
+
+      .old-price {
+        display: inline;
+        color: var(--color-text-faint);
+        text-decoration: line-through;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-bottom: 0;
+      }
+
+      .new-price {
+        display: inline;
+        font-size: 15px;
+        line-height: 1.15;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+
+      .bundle-gifts {
+        margin-top: 10px;
+        margin-left: 0;
+        padding: 10px 12px;
+        background: rgba(232, 244, 253, 0.8);
+        border-radius: 8px;
+      }
+
+      .gifts-heading {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--color-primary-dark);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        user-select: none;
+        padding: 6px 0;
+      }
+
+      .gifts-heading:hover {
+        color: var(--color-primary-dark);
+      }
+
+      .gifts-heading svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      .gifts-chevron {
+        margin-left: auto;
+        width: 14px;
+        height: 14px;
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .gifts-heading.collapsed .gifts-chevron {
+        transform: rotate(-90deg);
+      }
+
+      .gifts-content {
+        overflow: hidden;
+        max-height: 500px;
+        transition: max-height 0.3s ease, opacity 0.2s ease;
+        opacity: 1;
+      }
+
+      .gifts-content.collapsed {
+        max-height: 0;
+        opacity: 0;
+      }
+
+      .gift-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 0;
+      }
+
+      .gift-line + .gift-line {
+        border-top: 1px dashed var(--color-border);
+      }
+
+      .gift-line-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .gift-thumb-sm {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--color-primary-light);
+        background: var(--color-primary-light);
+        flex-shrink: 0;
+      }
+
+      .gift-thumb-sm img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .gift-line-name {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--color-text-muted);
+      }
+
+      .gift-line-was {
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--color-text-faint);
+        text-decoration: line-through;
+        display: block;
+      }
+
+      /* Muted FREE badge — blends in, doesn't shout */
+      .gift-line-right {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        background: var(--color-bg);
+        border-radius: 4px;
+        padding: 2px 6px;
+        letter-spacing: .3px;
+      }
+
+      .gifts-summary {
+        margin-top: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-primary-dark);
+      }
+
+      .gifts-summary strong {
+        color: var(--color-primary);
+      }
+
+      .shipping-opt-in {
+        margin: 0 0 12px;
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.929rem;
+        font-weight: 400;
+        color: var(--color-text-muted);
+        cursor: pointer;
+      }
+
+      .shipping-opt-in input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--color-primary);
+        flex-shrink: 0;
+        margin: 0;
+      }
+
+      .shipping-opt-in-text {
+        flex: 1;
+      }
+
+      .shipping-opt-in-price {
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      .footer-meta {
+        text-align: center;
+        font-size: 0.786rem;
+        color: var(--color-text-faint);
+        line-height: 1.3;
+      }
+
+      .cart-footer {
+        position: sticky;
+        bottom: 0;
+        background: var(--color-surface);
+        z-index: 3;
+        padding: 16px 20px 20px;
+      }
+
+      .price-breakdown {
+        margin-bottom: 12px;
+        padding: 10px 0;
+        border-top: 1px dashed var(--color-border);
+        border-bottom: 1px dashed var(--color-border);
+      }
+
+      .breakdown-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.929rem;
+        margin-bottom: 8px;
+      }
+
+      .breakdown-row:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .breakdown-label {
+        color: var(--color-text-muted);
+        font-weight: 400;
+      }
+
+      .breakdown-value {
+        color: var(--color-text);
+        font-weight: 400;
+      }
+
+      .discount-row {
+        color: var(--color-text-muted);
+      }
+
+      .discount-label-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .discount-tooltip {
+        color: var(--color-text-faint);
+        font-size: 12px;
+        cursor: help;
+        position: relative;
+      }
+
+      .discount-tooltip .tooltip-text {
+        visibility: hidden;
+        background: var(--color-text);
+        color: var(--color-surface);
+        font-size: 11px;
+        font-weight: 400;
+        padding: 6px 10px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: normal;
+        max-width: 200px;
+        width: max-content;
+        text-align: center;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .discount-tooltip .tooltip-text::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--color-text) transparent transparent transparent;
+      }
+
+      .discount-tooltip:hover .tooltip-text,
+      .discount-tooltip.active .tooltip-text,
+      .guarantee-tooltip:hover .tooltip-text,
+      .guarantee-tooltip.active .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .guarantee-tooltip {
+        color: var(--color-text-faint);
+        font-size: 12px;
+        cursor: help;
+        position: relative;
+        margin-left: 2px;
+      }
+
+      .guarantee-tooltip .tooltip-text {
+        visibility: hidden;
+        background: var(--color-text);
+        color: var(--color-surface);
+        font-size: 11px;
+        font-weight: 400;
+        padding: 6px 10px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: normal;
+        max-width: 240px;
+        width: max-content;
+        text-align: center;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .guarantee-tooltip .tooltip-text::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--color-text) transparent transparent transparent;
+      }
+
+      /* Muted discount pill — informational, not attention-grabbing */
+      .discount-code-inline {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--color-bg);             /* softer fill instead of blue */
+        color: var(--color-text-muted);
+        font-size: 0.786rem;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .discount-code-inline svg {
+        width: 10px;
+        height: 10px;
+        flex-shrink: 0;
+      }
+
+      .discount-badge-row {
+        margin-top: 4px;
+      }
+
+      .discount-value {
+        color: var(--color-text-muted);
+        font-weight: 600;
+      }
+
+      /* Muted savings banner — still positive, less loud */
+      .savings-banner {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.786rem;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        margin-top: 8px;
+      }
+
+      .savings-banner svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        color: var(--color-text-faint);
+      }
+
+      /* Compact single-line testimonial — moved above breakdown */
+      .testimonial-mini {
+        padding: 6px 0 10px;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        border-bottom: 1px dashed var(--color-border);
+      }
+
+      .testimonial-stats {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.857rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      .trustpilot-stars {
+        width: 60px;
+        height: 12px;
+      }
+
+      .testimonial-quote {
+        font-size: 0.786rem;
+        color: var(--color-text-faint);
+        line-height: 1.3;
+        font-style: italic;
+      }
+
+      .verified-badge {
+        font-size: 0.714rem;
+        font-weight: 600;
+        color: var(--color-text-faint);
+        background: var(--color-bg);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-style: normal;
+        margin-left: 4px;
+      }
+
+      
+
+      /* Dark high-contrast CTA — stands out from the blue badges used elsewhere */
+      .checkout {
+        width: 100%;
+        height: 52px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--color-primary);
+        color: var(--color-surface);
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.071rem;
+        line-height: 1;
+        font-weight: 700;
+        margin-top: 18px;                       /* breathing room above */
+        margin-bottom: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: opacity 0.15s ease;
+      }
+
+      .checkout:hover {
+        opacity: 0.88;
+      }
+
+      .checkout svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 1100px) {
+        body { padding: 0; }
+        .scene {
+          width: 100%;
+          height: 100dvh;
+          min-height: 100dvh;
+          overflow: hidden;
+          border-radius: 0;
+        }
+        .promo-bar,
+        .page {
+          display: none;
+        }
+        .cart {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+        .cart-body {
+          flex: 1;
+          min-height: 0;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .cart-footer {
+          position: sticky;
+          bottom: 0;
+          background: var(--color-surface);
+          padding-bottom: calc(20px + env(safe-area-inset-bottom));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="scene">
+      <div class="promo-bar">
+        <span>Spring Offer: Up to 50% Off + Free Gifts</span>
+        <span class="promo-pill">Shop Grounding Hoodie</span>
+      </div>
+
+      <section class="page" aria-hidden="true">
+        <div class="page-header">
+          <nav class="page-nav">
+            <span>SHOP ALL</span>
+            <span>AMBASSADOR</span>
+            <span>ABOUT US</span>
+          </nav>
+          <div class="page-logo">CloudNine</div>
+          <div class="page-icons"><span>◌</span><span>◍</span></div>
+        </div>
+
+        <div class="page-grid">
+          <div class="gallery">
+            <img class="hero" src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Blue_2.jpg?v=1763964609" alt="Cloud Hoodie product" />
+            <img class="hero" src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Blue_2.jpg?v=1763964609" alt="Cloud Hoodie product" />
+            <img class="detail" src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Blue_2.jpg?v=1763964609" alt="Cloud Hoodie detail" />
+            <img class="detail" src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Blue_2.jpg?v=1763964609" alt="Cloud Hoodie detail" />
+          </div>
+
+          <div class="pdp">
+            <div class="review-chip">Rated 4.7/5 on 84 reviews</div><br />
+            <div class="quote-chip">"I have severe anxiety and this is so comfy"</div>
+            <h1>Cloud Hoodie</h1>
+            <div class="price-row">
+              <span class="old">$149.00</span>
+              <span class="new">$99.00</span>
+              <span class="sale">Sale</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="cart">
+        <header class="cart-header">
+          <h1 class="cart-title">Cart (2)</h1>
+          <button class="close" aria-label="Close cart">×</button>
+        </header>
+
+        <section class="cart-body">
+          
+
+          <!-- CLEAN ITEM CARD -->
+          <div class="bundle-card">
+            <div class="row">
+              <div class="thumb">
+                <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Blue_2.jpg?v=1763964609" alt="Cloud Hoodie" />
+              </div>
+
+              <div>
+                <h2 class="title">Cloud Hoodie</h2>
+                <div class="meta-value">Royal Blue, XS</div>
+                <div class="price-row-inline">
+                  <span class="old-price">$149.00</span>
+                  <span class="new-price">$99.00</span>
+                </div>
+                <span class="discount-code-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>Get 1 Hoodie</span>
+              </div>
+
+              <div class="qty-col">
+                <div class="qty">
+                  <button>-</button>
+                  <span class="mid">1</span>
+                  <button>+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="bundle-gifts">
+              <div class="gifts-heading collapsed" onclick="toggleGifts()">
+                <dotlottie-wc src="https://lottie.host/aa178392-2196-411f-91f7-5190697b25ab/1EclEGwRZR.lottie" style="width: 20px; height: 20px;" autoplay loop></dotlottie-wc>
+                <div class="gifts-thumbs">
+                  <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/1_f8cba3a5-f997-46fa-b438-3469ba06d7aa.jpg" alt="" />
+                  <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/2_7e8839ed-11f0-4bde-ab51-bc4848862384.jpg" alt="" />
+                  <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/StickerPack_5d188d69-adb9-499b-a93a-7ba5ccab7117.jpg" alt="" />
+                </div>
+                3 free gifts included
+                <svg class="gifts-chevron" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L8 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="gifts-content collapsed">
+              <div class="gift-line">
+                <div class="gift-line-left">
+                  <div class="gift-thumb-sm"><img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/1_f8cba3a5-f997-46fa-b438-3469ba06d7aa.jpg" alt="The Anxiety Workbook" /></div>
+                  <div>
+                    <div class="gift-line-name">The Anxiety Workbook</div>
+                    <span class="gift-line-was">$12.00</span>
+                  </div>
+                </div>
+                <div class="gift-line-right">FREE</div>
+              </div>
+              <div class="gift-line">
+                <div class="gift-line-left">
+                  <div class="gift-thumb-sm"><img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/2_7e8839ed-11f0-4bde-ab51-bc4848862384.jpg" alt="30 Journal Prompts" /></div>
+                  <div>
+                    <div class="gift-line-name">30 Journal Prompts</div>
+                    <span class="gift-line-was">$12.00</span>
+                  </div>
+                </div>
+                <div class="gift-line-right">FREE</div>
+              </div>
+              <div class="gift-line">
+                <div class="gift-line-left">
+                  <div class="gift-thumb-sm"><img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/StickerPack_5d188d69-adb9-499b-a93a-7ba5ccab7117.jpg" alt="Stickers" /></div>
+                  <div>
+                    <div class="gift-line-name">Stickers</div>
+                    <span class="gift-line-was">$6.00</span>
+                  </div>
+                </div>
+                <div class="gift-line-right">FREE</div>
+              </div>
+              <div class="gifts-summary">Free gifts worth <strong>$30.00</strong></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECOND ITEM -->
+          <div class="bundle-card">
+            <div class="row">
+              <div class="thumb">
+                <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Image_84feb6d7-b31a-4224-a83f-d7b9ccc90cd2.jpg?v=1763963196" alt="Grounding Hoodie" />
+              </div>
+
+              <div>
+                <h2 class="title">Grounding Hoodie</h2>
+                <div class="meta-value">Plum, XS</div>
+                <div class="price-row-inline">
+                  <span class="old-price">$124.00</span>
+                  <span class="new-price">$91.00</span>
+                </div>
+              </div>
+
+              <div class="qty-col">
+                <div class="qty">
+                  <button>−</button>
+                  <span class="mid">1</span>
+                  <button>+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="cart-footer">
+          <div class="testimonial-mini">
+            <svg class="trustpilot-stars" xmlns="http://www.w3.org/2000/svg" width="75" height="12" viewBox="0 0 126 24" fill="none"><path d="M23.7227 -0.00286865H0.28418V23.254H23.7227V-0.00286865Z" fill="#00B67A"/><path d="M49.1143 -0.00286865H25.6758V23.254H49.1143V-0.00286865Z" fill="#00B67A"/><path d="M74.5059 -0.00286865H51.0674V23.254H74.5059V-0.00286865Z" fill="#00B67A"/><path d="M99.8977 -0.00286865H76.4592V23.254H99.8977V-0.00286865Z" fill="#00B67A"/><path d="M125.289 -0.00286865H113.57V23.254H125.289V-0.00286865Z" fill="#DCDCE6"/><path d="M113.57 -0.00286865H101.851V23.254H113.57V-0.00286865Z" fill="#00B67A"/><path d="M12.0033 15.6713L15.5679 14.7749L17.0572 19.3294L12.0033 15.6713ZM20.2068 9.78441H13.9321L12.0033 3.92175L10.0745 9.78441H3.7998L8.87815 13.4183L6.94935 19.2809L12.0277 15.6471L15.1528 13.4183L20.2068 9.78441Z" fill="white"/><path d="M37.3951 15.6713L40.9597 14.7749L42.4491 19.3294L37.3951 15.6713ZM45.5986 9.78441H39.3239L37.3951 3.92175L35.4663 9.78441H29.1917L34.27 13.4183L32.3412 19.2809L37.4195 15.6471L40.5447 13.4183L45.5986 9.78441Z" fill="white"/><path d="M62.7867 15.6713L66.3513 14.7749L67.8407 19.3294L62.7867 15.6713ZM70.9902 9.78441H64.7155L62.7867 3.92175L60.8579 9.78441H54.5833L59.6616 13.4183L57.7328 19.2809L62.8111 15.6471L65.9363 13.4183L70.9902 9.78441Z" fill="white"/><path d="M88.1783 15.6713L91.7429 14.7749L93.2323 19.3294L88.1783 15.6713ZM96.3818 9.78441H90.1071L88.1783 3.92175L86.2495 9.78441H79.9749L85.0532 13.4183L83.1244 19.2809L88.2028 15.6471L91.3279 13.4183L96.3818 9.78441Z" fill="white"/><path d="M113.57 15.6713L117.135 14.7749L118.624 19.3294L113.57 15.6713ZM121.774 9.78441H115.499L113.57 3.92175L111.642 9.78441H105.367L110.445 13.4183L108.516 19.2809L113.595 15.6471L116.72 13.4183L121.774 9.78441Z" fill="white"/></svg>
+            <span class="testimonial-quote">"Best anxiety relief purchase!" — Sarah M.</span>
+            <span class="verified-badge">✓ Verified</span>
+          </div>
+
+          <div class="price-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Subtotal</span>
+              <span class="breakdown-value">$273.00</span>
+            </div>
+            <div class="breakdown-row discount-row">
+              <div class="discount-label-group">
+                <span>Discounts</span>
+                <span class="discount-code-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>Get 1 Hoodie</span>
+                <span class="discount-tooltip">ⓘ<span class="tooltip-text">Bundle + sale discounts applied<br>Discounts cannot be clubbed</span></span>
+              </div>
+              <span class="discount-value">-$83.00</span>
+            </div>
+          </div>
+
+          <label class="shipping-opt-in">
+            <input type="checkbox" id="shipping-checkbox" onchange="updateTotal()" />
+            <span class="shipping-opt-in-text">Add insured shipping</span>
+            <span class="shipping-opt-in-price">+$2.50</span>
+          </label>
+
+          <button class="checkout">
+            Checkout · <span id="checkout-total">$190.00</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </button>
+
+          <div class="footer-meta">30-Day Happiness Guarantee <span class="guarantee-tooltip">ⓘ<span class="tooltip-text">We want you to feel calm, comfortable, and happy with your Cloud Nine purchase. If you're not satisfied, you have 30 days from delivery to request a return for a full product refund.<br><br>Items may be tried on or lightly worn a couple of times, but must remain clean and resellable. Return shipping is the customer's responsibility.</span></span></div>
+        </footer>
+      </aside>
+    </main>
+    <script>
+      function toggleGifts() {
+        var heading = document.querySelector('.gifts-heading');
+        var content = document.querySelector('.gifts-content');
+        heading.classList.toggle('collapsed');
+        content.classList.toggle('collapsed');
+      }
+
+      function updateTotal() {
+        var checkbox = document.getElementById('shipping-checkbox');
+        var totalEl = document.getElementById('checkout-total');
+        var baseTotal = 190.00;
+        if (checkbox.checked) {
+          totalEl.textContent = '$' + (baseTotal + 2.50).toFixed(2);
+        } else {
+          totalEl.textContent = '$' + baseTotal.toFixed(2);
+        }
+      }
+
+      // Mobile tooltip toggle
+      document.addEventListener('DOMContentLoaded', function() {
+        var tooltips = document.querySelectorAll('.discount-tooltip, .guarantee-tooltip');
+        tooltips.forEach(function(tooltip) {
+          tooltip.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+          });
+        });
+        document.addEventListener('click', function() {
+          tooltips.forEach(function(t) { t.classList.remove('active'); });
+        });
+      });
+    </script>
+  </body>
+</html>
