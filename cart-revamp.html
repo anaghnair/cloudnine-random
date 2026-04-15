@@ -410,6 +410,7 @@
         align-items: center;
         gap: 8px;
         margin-top: 0;
+        margin-bottom: 2px;
       }
 
       .old-price {
@@ -676,9 +677,51 @@
       }
 
       .discount-tooltip:hover .tooltip-text,
-      .discount-tooltip.active .tooltip-text {
+      .discount-tooltip.active .tooltip-text,
+      .guarantee-tooltip:hover .tooltip-text,
+      .guarantee-tooltip.active .tooltip-text {
         visibility: visible;
         opacity: 1;
+      }
+
+      .guarantee-tooltip {
+        color: var(--color-text-faint);
+        font-size: 12px;
+        cursor: help;
+        position: relative;
+        margin-left: 2px;
+      }
+
+      .guarantee-tooltip .tooltip-text {
+        visibility: hidden;
+        background: var(--color-text);
+        color: var(--color-surface);
+        font-size: 11px;
+        font-weight: 400;
+        padding: 6px 10px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: normal;
+        max-width: 240px;
+        width: max-content;
+        text-align: center;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .guarantee-tooltip .tooltip-text::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--color-text) transparent transparent transparent;
       }
 
       .discount-code-inline {
@@ -1011,7 +1054,7 @@
             Safe checkout · <span id="checkout-total">$190.00</span>
           </button>
 
-          <div class="footer-meta">If you don't feel calm and happy, you don't pay</div>
+          <div class="footer-meta">30-Day Happiness Guarantee <span class="guarantee-tooltip">ⓘ<span class="tooltip-text">We want you to feel calm, comfortable, and happy with your Cloud Nine purchase. If you're not satisfied, you have 30 days from delivery to request a return for a full product refund.<br><br>Items may be tried on or lightly worn a couple of times, but must remain clean and resellable. Return shipping is the customer's responsibility.</span></span></div>
         </footer>
       </aside>
     </main>
@@ -1036,7 +1079,7 @@
 
       // Mobile tooltip toggle
       document.addEventListener('DOMContentLoaded', function() {
-        var tooltips = document.querySelectorAll('.discount-tooltip');
+        var tooltips = document.querySelectorAll('.discount-tooltip, .guarantee-tooltip');
         tooltips.forEach(function(tooltip) {
           tooltip.addEventListener('click', function(e) {
             e.stopPropagation();
