@@ -1,0 +1,2526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+
+    <!--
+      Keep this page out of search results.
+      This is page-level protection and does not make the page private.
+    -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <title>Size Guide Wireframe</title>
+
+  <!--
+    ══════════════════════════════════════════════════════════════════
+    SIZE GUIDE v2 - WIREFRAME
+    ══════════════════════════════════════════════════════════════════
+
+    What this solves (from Slack research):
+    ───────────────────────────────────────
+    • "Fit uncertainty, especially with unisex/oversized styles"
+    • "Returns when fit feels too oversized or larger than expected"
+    • Current PDP size guide = static table, no fit rec, no model
+      context, no Australia table
+    • Standalone /pages/size has rich data but customers barely
+      visit it before buying
+
+    UX approach:
+    ─────────────
+    1. Minimal "Find My Size" button next to the Size label on PDP
+    2. Opens a full mobile-native experience (bottom sheet on mobile,
+       centered modal on desktop)
+    3. Three-step flow that ends with a specific recommendation:
+       Step 1 → Pick your height + weight (or skip)
+       Step 2 → Choose your fit preference (relaxed / true / oversized)
+       Step 3 → See your size + visual model comparison
+    4. Static table still available for those who want raw numbers
+
+    Brand alignment:
+    ──────────────────
+    • Matches the upgraded hero/collection design language:
+      - Deep sea blue #07608b as primary accent
+      - Rounded pill selectors matching collection nav chips
+      - Poppins font family, same weights (500/600/700/800)
+      - Rounded cards with soft shadows
+      - Blue gradient backgrounds from #e1f6ff → #f0f9ff
+      - Same CTA pill style as hero (border-radius: 999px)
+    ══════════════════════════════════════════════════════════════════
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════ BRAND TOKENS ══════════════════
+       Aligned with the upgraded hero + collection branding */
+    :root {
+      --cn-ink: #1F1F23;
+      --cn-ink-muted: rgba(31, 31, 35, 0.6);
+      --cn-sea: #07608b;
+      --cn-sea-muted: rgba(7, 96, 139, 0.78);
+      --cn-sea-light: rgba(7, 96, 139, 0.06);
+      --cn-sea-border: rgba(7, 96, 139, 0.12);
+      --cn-sea-hover: rgba(7, 96, 139, 0.18);
+      --cn-blue: #1E88E5;
+      --cn-blue-soft: #5CE1E8;
+      --cn-teal-bg: #e1f6ff;
+      --cn-teal-bg2: #f0f9ff;
+      --cn-yellow: #FFDE57;
+      --cn-yellow-bg: #FFF6D8;
+      --cn-orange: #FF914D;
+      --cn-green: #22c55e;
+      --cn-green-bg: #EAF8F1;
+      --cn-line: #D9DADF;
+      --cn-line-dark: #e2e2e5;
+      --cn-bg: #FFFFFF;
+      --cn-bg-soft: #F7F9F9;
+      --cn-bg-blue: #e1f6ff;
+      --cn-radius-sm: 8px;
+      --cn-radius-md: 12px;
+      --cn-radius-lg: 16px;
+      --cn-radius-xl: 24px;
+      --cn-radius-pill: 999px;
+      --cn-shadow-sm: 0 2px 8px rgba(31,31,35,0.06);
+      --cn-shadow-md: 0 8px 24px rgba(31,31,35,0.10);
+      --cn-shadow-lg: 0 16px 48px rgba(31,31,35,0.14);
+      --cn-font: 'Poppins', Inter, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Force Poppins on all form elements and buttons */
+    button, select, input, textarea, option {
+      font-family: var(--cn-font);
+    }
+
+    body {
+      font-family: var(--cn-font);
+      font-size: 14px;
+      color: var(--cn-ink);
+      background: #f5f5f5;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; }
+
+    /* ══════════════════ MOCK PDP (minimial) ══════════════════ */
+
+    .pdp-mock {
+      max-width: 420px;
+      margin: 0 auto;
+      background: var(--cn-bg);
+      padding: 0 16px 60px;
+    }
+
+    .pdp-mock__img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--cn-teal-bg) 0%, var(--cn-teal-bg2) 100%);
+      border-radius: var(--cn-radius-lg);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .pdp-mock__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdp-mock__title {
+      font-family: var(--cn-font);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+
+    .pdp-mock__price {
+      font-family: var(--cn-font);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .pdp-mock__tagline {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cn-sea-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* ── Variant selector (the trigger area) ── */
+
+    .pdp-variant {
+      margin-bottom: 16px;
+    }
+
+    .pdp-variant__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .pdp-variant__label {
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cn-ink);
+    }
+
+    .pdp-variant__selected {
+      font-family: var(--cn-font);
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+    }
+
+    .pdp-variant__size-guide-btn {
+      /* This is the redesigned trigger button */
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cn-sea);
+      letter-spacing: -0.2px;
+      padding: 6px 0;
+      transition: color 0.15s ease;
+    }
+
+    .pdp-variant__size-guide-btn:hover {
+      color: var(--cn-blue);
+    }
+
+    .pdp-variant__size-guide-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .pdp-variant__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pdp-variant__chip {
+      min-width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--cn-line);
+      border-radius: var(--cn-radius-md);
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cn-ink);
+      background: var(--cn-bg);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      padding: 0 12px;
+    }
+
+    .pdp-variant__chip:hover {
+      border-color: var(--cn-sea);
+      background: var(--cn-sea-light);
+    }
+
+    .pdp-variant__chip--active {
+      border-color: var(--cn-sea);
+      background: var(--cn-sea);
+      color: #fff;
+    }
+
+    .pdp-variant__chip--soldout {
+      opacity: 0.4;
+      text-decoration: line-through;
+      pointer-events: none;
+    }
+
+    .pdp-variant__fit-note {
+      font-family: var(--cn-font);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+    }
+
+    .pdp-variant__fit-note svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: var(--cn-sea);
+    }
+
+    /* ── Add to cart button ── */
+
+    .pdp-atc {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--cn-font);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: #fff;
+      background: var(--cn-ink);
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .pdp-atc:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .pdp-trust {
+      font-family: var(--cn-font);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+    }
+
+    /* ══════════════════ SIZE GUIDE OVERLAY ══════════════════ */
+
+    .sg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      pointer-events: none;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sg-overlay.is-open {
+      background: rgba(31, 31, 35, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      pointer-events: auto;
+    }
+
+    .sg-sheet {
+      width: 100%;
+      max-width: 520px;
+      max-height: 96vh;
+      background: var(--cn-bg);
+      border-radius: var(--cn-radius-xl) var(--cn-radius-xl) 0 0;
+      overflow: hidden;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--cn-font);
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+
+    .sg-overlay.is-open .sg-sheet {
+      transform: translateY(0);
+    }
+
+    @media (min-width: 750px) {
+      .sg-overlay {
+        align-items: center;
+        padding: 24px;
+      }
+
+      .sg-sheet {
+        border-radius: var(--cn-radius-xl);
+        max-height: 88vh;
+        max-width: 560px;
+        box-shadow: 0 24px 80px rgba(31, 31, 35, 0.22), 0 8px 32px rgba(31, 31, 35, 0.10);
+        margin-top: 0;
+      }
+    }
+
+    /* Handle bar (mobile) */
+    .sg-handle {
+      width: 36px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--cn-line);
+      margin: 10px auto 0;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 750px) {
+      .sg-handle { display: none; }
+    }
+
+    /* ── Header ── */
+    .sg-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--cn-bg);
+      z-index: 10;
+    }
+
+    .sg-header__title {
+      font-family: var(--cn-font);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--cn-ink);
+    }
+
+    .sg-header__close {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: none;
+      background: var(--cn-bg-soft);
+      cursor: pointer;
+      transition: background 0.15s ease;
+      color: var(--cn-ink);
+    }
+
+    .sg-header__close:hover {
+      background: var(--cn-line);
+    }
+
+    .sg-header__close svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ── Tab navigator ── */
+    .sg-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 20px;
+      margin-bottom: 4px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 56px;
+      background: var(--cn-bg);
+      z-index: 9;
+    }
+
+    .sg-tab {
+      flex: 1;
+      padding: 10px 0;
+      background: none;
+      border: none;
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--cn-ink-muted);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s ease;
+    }
+
+    .sg-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2.5px;
+      border-radius: 2px;
+      background: var(--cn-sea);
+      transition: width 0.2s ease;
+    }
+
+    .sg-tab.is-active {
+      color: var(--cn-sea);
+    }
+
+    .sg-tab.is-active::after {
+      width: 60%;
+    }
+
+    /* ── Scrollable body ── */
+    .sg-body {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 20px 32px;
+    }
+
+    /* ══════════════════ STEP 1: FIND YOUR SIZE ══════════════════ */
+
+    .sg-finder {
+      display: none;
+    }
+
+    .sg-finder.is-visible {
+      display: block;
+    }
+
+    .sg-finder__intro {
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cn-sea-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .sg-finder__section {
+      margin-bottom: 24px;
+    }
+
+    .sg-finder__question {
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cn-ink);
+      margin-bottom: 10px;
+    }
+
+    /* ── Height picker ── */
+    .sg-finder__height-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sg-finder__select-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .sg-finder__select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--cn-sea);
+      pointer-events: none;
+    }
+
+    .sg-finder__select {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cn-ink);
+      background: var(--cn-bg);
+      border: 1.5px solid var(--cn-line);
+      border-radius: var(--cn-radius-md);
+      padding: 12px 36px 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+    }
+
+    .sg-finder__select:focus {
+      outline: none;
+      border-color: var(--cn-sea);
+    }
+
+    .sg-finder__select--active {
+      border-color: var(--cn-sea);
+      background: var(--cn-sea-light);
+    }
+
+    /* ── Fit preference ── */
+    .sg-finder__fits {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sg-finder__fit {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 14px 8px 10px;
+      border: 1.5px solid var(--cn-line);
+      border-radius: var(--cn-radius-md);
+      background: var(--cn-bg);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+      font-family: var(--cn-font);
+    }
+
+    .sg-finder__fit:hover {
+      border-color: var(--cn-sea-border);
+      background: rgba(225, 246, 255, 0.35);
+    }
+
+    .sg-finder__fit.is-selected {
+      border-color: var(--cn-sea);
+      background: rgba(225, 246, 255, 0.6);
+    }
+
+    .sg-finder__fit-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .sg-finder__fit-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cn-ink);
+      letter-spacing: -0.2px;
+      font-family: var(--cn-font);
+    }
+
+    .sg-finder__fit-desc {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      line-height: 1.3;
+      font-family: var(--cn-font);
+    }
+
+    .sg-finder__fit-icon {
+      font-family: var(--cn-font);
+    }
+
+    .sg-finder__fit.is-selected .sg-finder__fit-label {
+      color: var(--cn-sea);
+    }
+
+    /* ── CTA ── */
+    .sg-finder__cta {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--cn-font);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: #fff;
+      background: var(--cn-sea);
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .sg-finder__cta:hover {
+      transform: translateY(-2px);
+      background: #065277;
+    }
+
+    .sg-finder__cta:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .sg-finder__cta--secondary {
+      background: none;
+      color: var(--cn-sea);
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid var(--cn-sea-border);
+      margin-top: 10px;
+      padding: 12px 24px;
+    }
+
+    .sg-finder__cta--secondary:hover {
+      background: var(--cn-sea-light);
+      transform: none;
+    }
+
+    /* ══════════════════ RESULT CARD ══════════════════ */
+
+    .sg-result {
+      display: none;
+      text-align: center;
+    }
+
+    .sg-result.is-visible {
+      display: block;
+    }
+
+    .sg-result__badge {
+      font-family: var(--cn-font);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--cn-green-bg);
+      color: #15803d;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--cn-radius-pill);
+      margin-bottom: 16px;
+    }
+
+    .sg-result__badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .sg-result__heading {
+      font-family: var(--cn-font);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--cn-ink);
+      margin-bottom: 4px;
+    }
+
+    .sg-result__sub {
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .sg-result__size-card {
+      background: linear-gradient(135deg, #e1f6ff 0%, #f0f9ff 100%);
+      border: 1.5px solid rgba(7, 96, 139, 0.1);
+      border-radius: var(--cn-radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 20px;
+    }
+
+    .sg-result__size-big {
+      font-family: var(--cn-font);
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--cn-sea);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .sg-result__size-label {
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cn-sea-muted);
+      margin-bottom: 16px;
+    }
+
+    .sg-result__dims {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .sg-result__dim {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.7);
+      border-radius: var(--cn-radius-sm);
+      min-width: 72px;
+    }
+
+    .sg-result__dim-value {
+      font-family: var(--cn-font);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--cn-ink);
+    }
+
+    .sg-result__dim-label {
+      font-family: var(--cn-font);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* model context image strip */
+    .sg-result__models {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .sg-result__model {
+      text-align: center;
+      border-radius: var(--cn-radius-md);
+      overflow: hidden;
+      border: 1.5px solid var(--cn-line);
+      background: var(--cn-bg-soft);
+      width: 100px;
+      transition: border-color 0.15s ease;
+    }
+
+    .sg-result__model:hover {
+      border-color: var(--cn-sea);
+    }
+
+    .sg-result__model.is-highlighted {
+      border-color: var(--cn-sea);
+      box-shadow: 0 0 0 2px rgba(7, 96, 139, 0.15);
+    }
+
+    .sg-result__model-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #e1f6ff 0%, #f0f9ff 100%);
+      overflow: hidden;
+    }
+
+    .sg-result__model-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sg-result__model-label {
+      font-family: var(--cn-font);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--cn-ink);
+      padding: 6px 4px;
+      line-height: 1.3;
+    }
+
+    .sg-result__model-detail {
+      font-family: var(--cn-font);
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+    }
+
+    /* Fit note */
+    .sg-result__fit-note {
+      background: rgba(225, 246, 255, 0.6);
+      border: 1px solid rgba(7, 96, 139, 0.1);
+      border-radius: var(--cn-radius-md);
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .sg-result__fit-note-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .sg-result__fit-note-text {
+      font-family: var(--cn-font);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--cn-sea);
+      line-height: 1.5;
+    }
+
+    .sg-result__fit-note-text strong {
+      font-weight: 700;
+    }
+
+    /* Actions */
+    .sg-result__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .sg-result__shop-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--cn-font);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: #fff;
+      background: var(--cn-ink);
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .sg-result__shop-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .sg-result__retake {
+      display: block;
+      width: 100%;
+      padding: 12px 24px;
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cn-sea);
+      background: none;
+      border: 1.5px solid var(--cn-sea-border);
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .sg-result__retake:hover {
+      background: var(--cn-sea-light);
+    }
+
+    /* ══════════════════ STEP 2: MEASUREMENT TABLE ══════════════════ */
+
+    .sg-table-view {
+      display: none;
+    }
+
+    .sg-table-view.is-visible {
+      display: block;
+    }
+
+    /* Country toggle */
+    .sg-table__controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .sg-table__country {
+      position: relative;
+    }
+
+    .sg-table__country-select {
+      appearance: none;
+      -webkit-appearance: none;
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cn-ink);
+      background: var(--cn-bg);
+      border: 1.5px solid var(--cn-sea-border);
+      border-radius: var(--cn-radius-pill);
+      padding: 8px 32px 8px 14px;
+      cursor: pointer;
+      background-image: url...("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%2307608b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px 6px;
+    }
+
+    /* Unit toggle pills */
+    .sg-table__units {
+      display: flex;
+      background: var(--cn-bg-soft);
+      border-radius: var(--cn-radius-pill);
+      padding: 3px;
+    }
+
+    .sg-table__unit-btn {
+      padding: 8px 16px;
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cn-ink-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sg-table__unit-btn.is-active {
+      background: var(--cn-sea);
+      color: #fff;
+    }
+
+    /* The table */
+    .sg-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--cn-line);
+      border-radius: var(--cn-radius-md);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .sg-table thead th {
+      background: #1F1F23;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--cn-font);
+      padding: 12px 8px;
+      text-align: center;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .sg-table thead th:first-child {
+      text-align: left;
+      padding-left: 14px;
+    }
+
+    .sg-table thead th span {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .sg-table thead th .sg-th-length { background: rgba(92, 225, 232, 0.25); }
+    .sg-table thead th .sg-th-chest { background: rgba(255, 222, 87, 0.3); }
+    .sg-table thead th .sg-th-sleeve { background: rgba(255, 145, 77, 0.3); }
+
+    .sg-table tbody td {
+      padding: 10px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--cn-font);
+      text-align: center;
+      color: var(--cn-ink);
+      border-bottom: 1px solid var(--cn-line-dark);
+    }
+
+    .sg-table tbody td:first-child {
+      text-align: left;
+      font-weight: 500;
+      padding-left: 14px;
+    }
+
+    .sg-table tbody tr:nth-child(odd) {
+      background: #FAF8F8;
+    }
+
+    .sg-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .sg-table tbody tr.sg-row-highlight td {
+      background: rgba(225, 246, 255, 0.6);
+      font-weight: 700;
+    }
+
+    /* How to measure */
+    .sg-howto {
+      border-top: 2px solid var(--cn-line);
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    .sg-howto__title {
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cn-ink);
+      margin-bottom: 14px;
+    }
+
+    .sg-howto__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sg-howto__item {
+      font-family: var(--cn-font);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--cn-ink);
+      line-height: 1.5;
+      padding-left: 32px;
+      position: relative;
+    }
+
+    .sg-howto__item::before {
+      counter-increment: cn-counter;
+      content: counter(cn-cn-counter);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 22px;
+      height: 22px;
+      background: #ddf4ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cn-ink);
+    }
+
+    .sg-howto {
+      counter-reset: cn-cn-counter;
+    }
+
+    .sg-howto__item strong {
+      font-weight: 700;
+    }
+
+    .sg-table__note {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+
+    /* ══════════════════ TOAST ══════════════════ */
+    .sg-toast {
+      font-family: var(--cn-font);
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #15803d;
+      color: #fff;
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: var(--cn-radius-pill);
+      z-index: 9999999;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .sg-toast.is-showing {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ══════════════════ RESPONSIVE ══════════════════ */
+
+    @media (min-width: 750px) {
+      .pdp-mock {
+        max-width: 480px;
+        padding: 0 24px 80px;
+      }
+
+      .pdp-mock__title {
+        font-size: 24px;
+      }
+
+      .sg-body {
+        padding: 12px 28px 40px;
+      }
+
+      .sg-header {
+        padding: 20px 28px 16px;
+      }
+
+      .sg-tabs {
+        padding: 0 28px;
+      }
+
+      .sg-finder__intro {
+        font-size: 14px;
+      }
+
+      .sg-finder__question {
+        font-size: 15px;
+      }
+
+      .sg-finder__fit {
+        padding: 18px 14px 14px;
+      }
+
+      .sg-finder__fit-icon {
+        font-size: 28px;
+      }
+
+      .sg-finder__fit-label {
+        font-size: 13px;
+      }
+
+      .sg-finder__fit-desc {
+        font-size: 11px;
+      }
+
+      .sg-result__size-big {
+        font-size: 72px;
+      }
+
+      .sg-result__dim {
+        padding: 10px 16px;
+        min-width: 84px;
+      }
+
+      .sg-result__dim-value {
+        font-size: 18px;
+      }
+
+      .sg-result__models {
+        gap: 12px;
+      }
+
+      .sg-result__model {
+        width: 120px;
+      }
+
+      .sg-table thead th {
+        font-size: 12px;
+        padding: 14px 12px;
+      }
+
+      .sg-table tbody td {
+        font-size: 13px;
+        padding: 12px 12px;
+      }
+
+      .sg-howto__title {
+        font-size: 15px;
+      }
+
+      .sg-howto__item {
+        font-size: 13px;
+      }
+    }
+
+    @media (min-width: 990px) {
+      .sg-sheet {
+        max-width: 600px;
+      }
+
+      .sg-body {
+        padding: 16px 36px 48px;
+      }
+
+      .sg-header {
+        padding: 24px 36px 18px;
+      }
+
+      .sg-header__title {
+        font-size: 20px;
+      }
+
+      .sg-tabs {
+        padding: 0 36px;
+      }
+
+      .sg-tab {
+        font-size: 14px;
+        padding: 12px 0;
+      }
+
+      .sg-finder__intro {
+        font-size: 14px;
+      }
+
+      .sg-finder__question {
+        font-size: 15px;
+      }
+
+      .sg-finder__fits {
+        gap: 14px;
+      }
+
+      .sg-finder__fit {
+        padding: 20px 16px 16px;
+      }
+
+      .sg-finder__fit-icon {
+        font-size: 32px;
+      }
+
+      .sg-finder__fit-label {
+        font-size: 14px;
+      }
+
+      .sg-finder__fit-desc {
+        font-size: 12px;
+      }
+
+      .sg-result__heading {
+        font-size: 22px;
+      }
+
+      .sg-result__size-big {
+        font-size: 80px;
+      }
+
+      .sg-table__controls {
+        margin-bottom: 20px;
+      }
+
+      .sg-table thead th {
+        font-size: 13px;
+        padding: 14px 14px;
+      }
+
+      .sg-table tbody td {
+        font-size: 14px;
+        padding: 12px 14px;
+      }
+    }
+
+    /* ══════════════════ SKELETON / PLACEHOLDER ══════════════════ */
+
+    .placeholder-img {
+      font-family: var(--cn-font);
+      background: linear-gradient(135deg, #e1f6ff 0%, #f0f9ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--cn-sea-muted);
+      font-weight: 500;
+    }
+
+    /* ══════════════════ ADDITIONS v2 ══════════════════ */
+
+    /* ── Inline PDP fit hint ── */
+    .pdp-variant__inline-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: var(--cn-yellow-bg);
+      border-radius: var(--cn-radius-md);
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cn-ink);
+      line-height: 1.5;
+    }
+
+    .pdp-variant__inline-hint svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--cn-orange);
+    }
+
+    .pdp-variant__inline-hint strong {
+      font-weight: 700;
+    }
+
+    /* ── Fit preference hint text ── */
+    .sg-finder__fit-hint {
+      font-family: var(--cn-font);
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--cn-sea-muted);
+      line-height: 1.4;
+      margin-top: 2px;
+      display: none;
+    }
+
+    .sg-finder__fit.is-selected .sg-finder__fit-hint {
+      display: block;
+    }
+
+    /* ── Weight input ── */
+    .sg-finder__weight-unit-toggle {
+      display: flex;
+      background: var(--cn-bg-soft);
+      border-radius: var(--cn-radius-pill);
+      padding: 3px;
+      margin-top: 8px;
+      max-width: 180px;
+    }
+
+    .sg-finder__weight-unit-btn {
+      padding: 6px 14px;
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cn-ink-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sg-finder__weight-unit-btn.is-active {
+      background: var(--cn-sea);
+      color: #fff;
+    }
+
+    /* ── Confidence indicator ── */
+    .sg-result__confidence {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: -4px 0 16px;
+    }
+
+    .sg-result__confidence-bar {
+      width: 100px;
+      height: 5px;
+      background: var(--cn-line-dark);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sg-result__confidence-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--cn-green);
+      transition: width 0.4s ease;
+    }
+
+    .sg-result__confidence-label {
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 600;
+      color: #15803d;
+    }
+
+    /* ── Between sizes help ── */
+    .sg-result__between {
+      background: var(--cn-yellow-bg);
+      border: 1px solid rgba(255, 222, 87, 0.3);
+      border-radius: var(--cn-radius-md);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .sg-result__between-title {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cn-ink);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sg-result__between-text {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Review fit proof ── */
+    .sg-result__reviews {
+      background: var(--cn-bg-soft);
+      border: 1px solid var(--cn-line-dark);
+      border-radius: var(--cn-radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .sg-result__reviews-title {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cn-ink);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sg-result__reviews-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sg-result__reviews-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sg-result__reviews-label {
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      min-width: 72px;
+    }
+
+    .sg-result__reviews-track {
+      flex: 1;
+      height: 8px;
+      background: var(--cn-line-dark);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .sg-result__reviews-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .sg-result__reviews-fill--true { background: var(--cn-green); }
+    .sg-result__reviews-fill--large { background: var(--cn-orange); }
+    .sg-result__reviews-fill--small { background: var(--cn-sea); }
+
+    .sg-result__reviews-pct {
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .sg-result__reviews-pct--true { color: #15803d; }
+    .sg-result__reviews-pct--large { color: #c2410c; }
+    .sg-result__reviews-pct--small { color: var(--cn-sea); }
+
+    /* ── Body vs Garment toggle ── */
+    .sg-table__body-toggle {
+      display: flex;
+      background: var(--cn-bg-soft);
+      border-radius: var(--cn-radius-pill);
+      padding: 3px;
+      margin-left: auto;
+    }
+
+    .sg-table__body-btn {
+      padding: 6px 12px;
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cn-ink-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .sg-table__body-btn.is-active {
+      background: var(--cn-ink);
+      color: #fff;
+    }
+
+    /* ── How to measure diagrams ── */
+    .sg-howto__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .sg-howto__diagram {
+      text-align: center;
+      padding: 12px 8px;
+      background: var(--cn-bg-soft);
+      border-radius: var(--cn-radius-md);
+      border: 1px solid var(--cn-line-dark);
+    }
+
+    .sg-howto__diagram-svg {
+      width: 48px;
+      height: 64px;
+      margin: 0 auto 8px;
+      display: block;
+    }
+
+    .sg-howto__diagram-label {
+      font-family: var(--cn-font);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cn-ink);
+      margin-bottom: 2px;
+    }
+
+    .sg-howto__diagram-desc {
+      font-family: var(--cn-font);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--cn-ink-muted);
+      line-height: 1.4;
+    }
+
+    /* ── Sticky PDP size hint bar ── */
+    .pdp-sticky-bar {
+      display: none; /* shown via JS on scroll */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--cn-bg);
+      border-top: 1px solid var(--cn-line);
+      padding: 12px 16px;
+      z-index: 9999;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    }
+
+    .pdp-sticky-bar.is-visible {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pdp-sticky-bar__size {
+      font-family: var(--cn-font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cn-ink);
+    }
+
+    .pdp-sticky-bar__size span {
+      color: var(--cn-sea);
+    }
+
+    .pdp-sticky-bar__help {
+      font-family: var(--cn-font);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cn-sea);
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 4px 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .pdp-sticky-bar__atc {
+      font-family: var(--cn-font);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--cn-ink);
+      border: none;
+      border-radius: var(--cn-radius-pill);
+      padding: 12px 24px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 750px) {
+      .sg-result__confidence { gap: 10px; }
+      .sg-result__confidence-bar { width: 120px; }
+      .sg-howto__grid { gap: 16px; }
+      .sg-howto__diagram { padding: 16px 12px; }
+      .sg-howto__diagram-svg { width: 56px; height: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════ MOCK PDP (above the fold) ════════════════ -->
+  <div class="pdp-mock">
+    <div class="pdp-mock__img">
+      <!-- In production: actual product image -->
+      <img src="https://cdn.shopify.com/s/files/1/0714/5868/5233/files/cloud-nine-stress-ball-cuff-hoodie-hero.jpg?v=1774448523"
+           alt="Cloud Nine Grounding Hoodie"
+           style="width:100%;height:100%;object-fit:cover;">
+    </div>
+
+    <div class="pdp-mock__title">Grounding Hoodie</div>
+    <div class="pdp-mock__price">$84.95</div>
+    <div class="pdp-mock__tagline">Built-in stress ball cuffs for anxiety relief. Unisex, heavyweight, oversized fit.</div>
+
+    <!-- ── SIZE VARIANT + TRIGGER BUTTON ── -->
+    <div class="pdp-variant">
+      <div class="pdp-variant__header">
+        <div>
+          <span class="pdp-variant__label">Size: </span>
+          <span class="pdp-variant__selected" id="selectedSize">M</span>
+        </div>
+        <button class="pdp-variant__size-guide-btn" id="openSizeGuide" aria-label="Find your size">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M3 1v14M13 1v14M1 3h14M1 8h14M1 13h14"/>
+          </svg>
+          Find My Size
+        </button>
+      </div>
+
+      <div class="pdp-variant__chips">
+        <button class="pdp-variant__chip" data-size="XS">XS</button>
+        <button class="pdp-variant__chip" data-size="S">S</button>
+        <button class="pdp-variant__chip pdp-variant__chip--active" data-size="M">M</button>
+        <button class="pdp-variant__chip" data-size="L">L</button>
+        <button class="pdp-variant__chip" data-size="XL">XL</button>
+        <button class="pdp-variant__chip" data-size="2XL">2XL</button>
+        <button class="pdp-variant__chip" data-size="3XL">3XL</button>
+      </div>
+
+      <div class="pdp-variant__fit-note">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1"/></svg>
+        Unisex sizing - size up for a more relaxed, oversized fit
+      </div>
+
+      <!-- Inline fit hint: honest guidance right at the decision point -->
+      <div class="pdp-variant__inline-hint">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1v6M8 11v0"/><circle cx="8" cy="8" r="7" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+        <span><strong>Runs oversized</strong> - most people order their usual size. Size down 1 for a closer fit.</span>
+      </div>
+    </div>
+
+    <button class="pdp-atc">Add to Cart</button>
+    <div class="pdp-trust">🛡️ 30-day money-back guarantee</div>
+  </div>
+
+  <!-- ════════════════ SIZE GUIDE OVERLAY ════════════════ -->
+
+  <div class="sg-overlay" id="sizeGuideOverlay">
+    <div class="sg-sheet">
+      <div class="sg-handle"></div>
+
+      <!-- Header -->
+      <div class="sg-header">
+        <span class="sg-header__title">Find Your Size</span>
+        <button class="sg-header__close" id="closeSizeGuide" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="sg-tabs">
+        <button class="sg-tab is-active" data-tab="finder">Find My Size</button>
+        <button class="sg-tab" data-tab="table">Size Chart</button>
+      </div>
+
+      <!-- Scrollable body -->
+      <div class="sg-body">
+
+        <!-- ═══════ TAB 1: FIND MY SIZE ═══════ -->
+        <div class="sg-finder is-visible" id="sgFinder">
+
+          <!-- Step indicator -->
+          <div class="sg-finder__intro">
+            Answer 3 quick questions and we'll recommend your best fit.
+          </div>
+
+          <!-- Height -->
+          <div class="sg-finder__section">
+            <div class="sg-finder__question">1. What's your height?</div>
+            <div class="sg-finder__height-row">
+              <div class="sg-finder__select-wrap">
+                <select class="sg-finder__select" id="heightFt">
+                  <option value="">ft</option>
+                  <option value="4">4'</option>
+                  <option value="5">5'</option>
+                  <option value="6">6'</option>
+                </select>
+              </div>
+              <div class="sg-finder__select-wrap">
+                <select class="sg-finder__select" id="heightIn">
+                  <option value="">in</option>
+                  <option value="0">0"</option>
+                  <option value="1">1"</option>
+                  <option value="2">2"</option>
+                  <option value="3">3"</option>
+                  <option value="4">4"</option>
+                  <option value="5">5"</option>
+                  <option value="6">6"</option>
+                  <option value="7">7"</option>
+                  <option value="8">8"</option>
+                  <option value="9">9"</option>
+                  <option value="10">10"</option>
+                  <option value="11">11"</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weight (optional but improves accuracy) -->
+          <div class="sg-finder__section">
+            <div class="sg-finder__question">2. What's your weight? <span style="font-weight:500;font-size:12px;color:var(--cn-ink-muted)">(optional - improves accuracy)</span></div>
+            <div class="sg-finder__height-row">
+              <div class="sg-finder__select-wrap">
+                <input type="number" class="sg-finder__select" id="weightVal" placeholder="e.g. 160" min="60" max="400" style="padding-right:14px;">
+              </div>
+              <div class="sg-finder__weight-unit-toggle">
+                <button class="sg-finder__weight-unit-btn is-active" data-wunit="lbs">lbs</button>
+                <button class="sg-finder__weight-unit-btn" data-wunit="kg">kg</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fit preference -->
+          <div class="sg-finder__section">
+            <div class="sg-finder__question">3. How do you want it to fit?</div>
+            <div class="sg-finder__fits">
+              <button class="sg-finder__fit" data-fit="relaxed">
+                <span class="sg-finder__fit-icon">😌</span>
+                <span class="sg-finder__fit-label">Relaxed</span>
+                <span class="sg-finder__fit-desc">Your usual size, roomy feel</span>
+                <span class="sg-finder__fit-hint">Order your regular size</span>
+              </button>
+              <button class="sg-finder__fit" data-fit="true">
+                <span class="sg-finder__fit-icon">🧘</span>
+                <span class="sg-finder__fit-label">Closer Fit</span>
+                <span class="sg-finder__fit-desc">Less drape, more shape</span>
+                <span class="sg-finder__fit-hint">Size down 1 from your usual</span>
+              </button>
+              <button class="sg-finder__fit" data-fit="oversized">
+                <span class="sg-finder__fit-icon">🤗</span>
+                <span class="sg-finder__fit-label">Oversized</span>
+                <span class="sg-finder__fit-desc">Max drape, extra cozy</span>
+                <span class="sg-finder__fit-hint">Size up 1 from your usual</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <button class="sg-finder__cta" id="findMySizeBtn" disabled>Find My Size</button>
+          <button class="sg-finder__cta sg-finder__cta--secondary" id="skipToTable">Just show me the chart →</button>
+        </div>
+
+        <!-- ═══════ RESULT CARD ═══════ -->
+        <div class="sg-result" id="sgResult">
+          <div class="sg-result__badge">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 8l4 4 8-8"/></svg>
+            Recommended for you
+          </div>
+
+          <div class="sg-result__heading" id="resultHeading">Your size: L</div>
+          <div class="sg-result__sub" id="resultSub">Based on 5'10" with a relaxed fit preference</div>
+
+          <!-- Confidence indicator -->
+          <div class="sg-result__confidence" id="resultConfidence">
+            <span class="sg-result__confidence-label" id="resultConfLabel">High confidence</span>
+            <div class="sg-result__confidence-bar">
+              <div class="sg-result__confidence-fill" id="resultConfFill" style="width:80%"></div>
+            </div>
+          </div>
+
+          <div class="sg-result__size-card">
+            <div class="sg-result__size-big" id="resultSize">L</div>
+            <div class="sg-result__size-label" id="resultSizeLabel">Unisex Hoodie - Relaxed Fit</div>
+
+            <div class="sg-result__dims" id="resultDims">
+              <div class="sg-result__dim">
+                <span class="sg-result__dim-value" id="resultLength">28"</span>
+                <span class="sg-result__dim-label">Length</span>
+              </div>
+              <div class="sg-result__dim">
+                <span class="sg-result__dim-value" id="resultChest">27"</span>
+                <span class="sg-result__dim-label">Chest</span>
+              </div>
+              <div class="sg-result__dim">
+                <span class="sg-result__dim-value" id="resultSleeve">25"</span>
+                <span class="sg-result__dim-label">Sleeve</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model comparison strip -->
+          <div class="sg-result__models" id="resultModels">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Fit note -->
+          <div class="sg-result__fit-note" id="resultFitNote">
+            <span class="sg-result__fit-note-icon">💡</span>
+            <span class="sg-result__fit-note-text" id="resultFitNoteText">For a relaxed fit, order your usual size. The hoodie runs slightly oversized already - most people stay true to size for the intended look.</span>
+          </div>
+
+          <!-- Between sizes? -->
+          <div class="sg-result__between" id="resultBetween">
+            <div class="sg-result__between-title">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--cn-orange)" stroke-width="1.5"><path d="M8 1v6M8 11v0"/><circle cx="8" cy="8" r="7" fill="none"/></svg>
+              Between sizes?
+            </div>
+            <div class="sg-result__between-text" id="resultBetweenText">If you're between sizes, size down for a closer fit or stay at your recommended size for the intended oversized drape.</div>
+          </div>
+
+          <!-- What customers say -->
+          <div class="sg-result__reviews">
+            <div class="sg-result__reviews-title">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--cn-sea)" stroke-width="1.5"><path d="M2 4h12v8H2z"/><path d="M6 8h4"/></svg>
+              What customers say about fit
+            </div>
+            <div class="sg-result__reviews-bar-wrap">
+              <div class="sg-result__reviews-row">
+                <span class="sg-result__reviews-label">True to size</span>
+                <div class="sg-result__reviews-track"><div class="sg-result__reviews-fill sg-result__reviews-fill--true" style="width:76%"></div></div>
+                <span class="sg-result__reviews-pct sg-result__reviews-pct--true">76%</span>
+              </div>
+              <div class="sg-result__reviews-row">
+                <span class="sg-result__reviews-label">Runs large</span>
+                <div class="sg-result__reviews-track"><div class="sg-result__reviews-fill sg-result__reviews-fill--large" style="width:18%"></div></div>
+                <span class="sg-result__reviews-pct sg-result__reviews-pct--large">18%</span>
+              </div>
+              <div class="sg-result__reviews-row">
+                <span class="sg-result__reviews-label">Runs small</span>
+                <div class="sg-result__reviews-track"><div class="sg-result__reviews-fill sg-result__reviews-fill--small" style="width:6%"></div></div>
+                <span class="sg-result__reviews-pct sg-result__reviews-pct--small">6%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-result__actions">
+            <a href="#" class="sg-result__shop-btn" id="selectAndShop">Select Size & Continue</a>
+            <button class="sg-result__retake" id="retakeQuiz">← Retake quiz</button>
+          </div>
+        </div>
+
+        <!-- ═══════ TAB 2: SIZE CHART ═══════ -->
+        <div class="sg-table-view" id="sgTableView">
+
+          <!-- Controls -->
+          <div class="sg-table__controls">
+            <div class="sg-table__country">
+              <select class="sg-table__country-select" id="countrySelect">
+                <option value="us">US</option>
+                <option value="uk">UK</option>
+                <option value="aus">AUS</option>
+              </select>
+            </div>
+            <div class="sg-table__units">
+              <button class="sg-table__unit-btn is-active" data-unit="in">Inches</button>
+              <button class="sg-table__unit-btn" data-unit="cm">CM</button>
+            </div>
+            <div class="sg-table__body-toggle">
+              <button class="sg-table__body-btn is-active" data-measure="garment">Garment</button>
+              <button class="sg-table__body-btn" data-measure="body">Body</button>
+            </div>
+          </div>
+
+          <!-- Hoodie Adult Table (default) -->
+          <div class="sg-table-wrap" id="sizeTableWrap">
+            <table class="sg-table" id="sizeTable">
+              <!-- Populated by JS -->
+            </table>
+          </div>
+
+          <div class="sg-table__note">
+            <strong>Unisex sizing</strong> - size up for a more relaxed, oversized fit.<br>
+            NOTE: manual measurements may vary by 0.5-1 inch.
+          </div>
+
+          <!-- How to measure (visual diagrams) -->
+          <div class="sg-howto">
+            <div class="sg-howto__title">How to Measure</div>
+
+            <!-- Visual diagrams -->
+            <div class="sg-howto__grid">
+              <div class="sg-howto__diagram">
+                <svg class="sg-howto__diagram-svg" viewBox="0 0 48 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Hoodie outline with length arrow -->
+                  <rect x="14" y="6" width="20" height="54" rx="4" stroke="#07608b" stroke-width="1.5" fill="#e1f6ff"/>
+                  <rect x="10" y="6" width="8" height="10" rx="2" stroke="#07608b" stroke-width="1" fill="#f0f9ff"/>
+                  <rect x="30" y="6" width="8" height="10" rx="2" stroke="#07608b" stroke-width="1" fill="#f0f9ff"/>
+                  <!-- Length arrow -->
+                  <line x1="40" y1="6" x2="40" y2="60" stroke="#FF914D" stroke-width="1.5"/>
+                  <polygon points="40,4 38,8 42,8" fill="#FF914D"/>
+                  <polygon points="40,62 38,58 42,58" fill="#FF914D"/>
+                </svg>
+                <div class="sg-howto__diagram-label">Length</div>
+                <div class="sg-howto__diagram-desc">Shoulder seam to hem</div>
+              </div>
+
+              <div class="sg-howto__diagram">
+                <svg class="sg-howto__diagram-svg" viewBox="0 0 48 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Hoodie outline with chest arrow -->
+                  <rect x="10" y="8" width="28" height="48" rx="4" stroke="#07608b" stroke-width="1.5" fill="#e1f6ff"/>
+                  <rect x="6" y="8" width="10" height="10" rx="2" stroke="#07608b" stroke-width="1" fill="#f0f9ff"/>
+                  <rect x="32" y="8" width="10" height="10" rx="2" stroke="#07608b" stroke-width="1" fill="#f0f9ff"/>
+                  <!-- Chest arrow -->
+                  <line x1="10" y1="26" x2="38" y2="26" stroke="#FFDE57" stroke-width="1.5"/>
+                  <polygon points="8,26 12,24 12,28" fill="#FFDE57"/>
+                  <polygon points="40,26 36,24 36,28" fill="#FFDE57"/>
+                </svg>
+                <div class="sg-howto__diagram-label">Chest</div>
+                <div class="sg-howto__diagram-desc">Across, under armpits</div>
+              </div>
+
+              <div class="sg-howto__diagram">
+                <svg class="sg-howto__diagram-svg" viewBox="0 0 48 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Hoodie outline with sleeve arrow -->
+                  <rect x="14" y="12" width="20" height="40" rx="4" stroke="#07608b" stroke-width="1.5" fill="#e1f6ff"/>
+                  <rect x="4" y="12" width="12" height="14" rx="3" stroke="#07608b" stroke-width="1.5" fill="#f0f9ff"/>
+                  <!-- Sleeve arrow -->
+                  <line x1="4" y1="19" x2="14" y2="19" stroke="#5CE1E8" stroke-width="1.5"/>
+                  <line x1="14" y1="19" x2="32" y2="14" stroke="#5CE1E8" stroke-width="1.5"/>
+                  <circle cx="4" cy="19" r="2" fill="#5CE1E8"/>
+                </svg>
+                <div class="sg-howto__diagram-label">Sleeve</div>
+                <div class="sg-howto__diagram-desc">Shoulder to cuff</div>
+              </div>
+            </div>
+
+            <ul class="sg-howto__list">
+              <li class="sg-howto__item"><strong>Length:</strong> Highest point of shoulder (next to neckline) straight down to the bottom hem.</li>
+              <li class="sg-howto__item"><strong>Chest:</strong> Lay flat, measure across the widest part just under the armpits. Double for full circumference.</li>
+              <li class="sg-howto__item"><strong>Sleeve:</strong> From the shoulder seam down to the end of the sleeve cuff.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="sg-toast" id="sizeToast">Size selected! ✓</div>
+
+  <script>
+    // ══════════════════ SIZE DATA ══════════════════
+    // Garment measurements (inches) — what the hoodie actually measures laid flat
+    const SIZE_DATA = {
+      hoodie: {
+        label: 'Hoodie',
+        sizes: ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'],
+        us: {
+          in: { length: [26,27,27,28,29,30,31,32], chest: [22,24,25,27,28,30,31,32], sleeve: [23,24,24,25,26,26,27,27] },
+          cm: { length: [67,68.5,69.5,71,73,75.5,78,81], chest: [56,60,64,68,71,76,79,81], sleeve: [60,61,62,63,66,67,69,70] }
+        },
+        uk: {
+          in: { length: [26,27,27,28,29,30,31,32], chest: [22,24,25,27,28,30,31,32], sleeve: [23,24,24,25,26,26,27,27] },
+          cm: { length: [67,68.5,69.5,71,73,75.5,78,81], chest: [56,60,64,68,71,76,79,81], sleeve: [60,61,62,63,66,67,69,70] }
+        },
+        aus: {
+          in: { length: [26,27,27,28,29,30,31,32], chest: [22,24,25,27,28,30,31,32], sleeve: [23,24,24,25,26,26,27,27] },
+          cm: { length: [67,68.5,69.5,71,73,75.5,78,81], chest: [56,60,64,68,71,76,79,81], sleeve: [60,61,62,63,66,67,69,70] }
+        }
+      }
+    };
+
+    // Body measurements — suggested body dimensions for each size (inches)
+    // These are “best fit” body measurements, not garment measurements
+    const BODY_DATA = {
+      hoodie: {
+        us: {
+          in: { chest: [32,34,36,38,40,42,44,46], waist: [26,28,30,32,34,36,38,40], hip: [35,37,39,41,43,45,47,49] },
+          cm: { chest: [81,86,91,97,102,107,112,117], waist: [66,71,76,81,86,91,97,102], hip: [89,94,99,104,109,114,119,125] }
+        },
+        uk: {
+          in: { chest: [32,34,36,38,40,42,44,46], waist: [26,28,30,32,34,36,38,40], hip: [35,37,39,41,43,45,47,49] },
+          cm: { chest: [81,86,91,97,102,107,112,117], waist: [66,71,76,81,86,91,97,102], hip: [89,94,99,104,109,114,119,125] }
+        },
+        aus: {
+          in: { chest: [32,34,36,38,40,42,44,46], waist: [26,28,30,32,34,36,38,40], hip: [35,37,39,41,43,45,47,49] },
+          cm: { chest: [81,86,91,97,102,107,112,117], waist: [66,71,76,81,86,91,97,102], hip: [89,94,99,104,109,114,119,125] }
+        }
+      }
+    };
+
+    // Model fit references — diverse body types for honest comparison
+    const MODEL_REFERENCES = [
+      { size: 'XS', label: 'Petite', height: `5'2" — 120 lbs`, img: 'https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Anxiety_Hoodie_for_Adults_b7aceb78-66f8-4710-ba88-4d0732665bf7.jpg' },
+      { size: 'S', label: 'Slim', height: `5'5" — 135 lbs`, img: 'https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Pastel_Cloud_Hoodie_Cotton_Candy_Close_up.png' },
+      { size: 'M', label: 'Average', height: `5'8" — 165 lbs`, img: 'https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Matcha_Green_Pastel_Cloud_Hoodie.png' },
+      { size: 'L', label: 'Athletic', height: `5'10" — 185 lbs`, img: 'https://cdn.shopify.com/s/files/1/0714/5868/5233/files/Best_Anxiety_Hoodie_in_Matcha_Green.png' },
+    ];
+
+    // Review-based fit proof — in production, pull from real reviews
+    const FIT_REVIEWS = {
+      trueToSize: 76,
+      runsLarge: 18,
+      runsSmall: 6,
+      totalReviews: 243
+    };
+
+    // ══════════════════ TRACKING STUBS ══════════════════
+    function trackEvent(name, data = {}) {
+      // Production: replace with your analytics (gtag, klaviyo, segment, etc.)
+      console.log(`[size-guide] ${name}`, data);
+    }
+
+    // ══════════════════ RECOMMENDATION ENGINE ══════════════════
+    // Fit shift: how many sizes to shift from base height-derived recommendation
+    // This hoodie runs oversized by design:
+    //   relaxed = your usual size (it IS oversized)
+    //   closer = size down 1 (because already oversized)
+    //   oversized = size up 1 (extra drape)
+    const FIT_SHIFT = { relaxed: 0, true: -1, oversized: 1 };
+
+    function recommendSize(heightIn, fitPref, weightLbs) {
+      const sizes = SIZE_DATA.hoodie.sizes;
+
+      // Height-based base size (oversized hoodie defaults)
+      const bands = [
+        { max: 62, idx: 0 },   // <5'2"
+        { max: 65, idx: 1 },   // 5'2"–5'4"
+        { max: 68, idx: 2 },   // 5'5"–5'7"
+        { max: 71, idx: 3 },   // 5'8"–5'11"
+        { max: 74, idx: 4 },   // 6'0"–6'3"
+        { max: 78, idx: 5 },   // 6'3"–6'6"
+        { max: Infinity, idx: 6 }  // 6'6"+
+      ];
+
+      let baseIndex = bands.find(b => heightIn < b.max).idx;
+
+      // Weight adjustment: heavier for same height → maybe size up
+      if (weightLbs) {
+        const avgWeightForHeight = {
+          // rough averages in lbs per height band median
+          60: 130, 63: 140, 66: 155, 69: 170, 72: 190, 76: 210, 80: 230
+        };
+        // Find nearest avg weight
+        const nearestH = Object.keys(avgWeightForHeight).map(Number).reduce((a, b) =>
+          Math.abs(b - heightIn) < Math.abs(a - heightIn) ? b : a
+        );
+        const avgW = avgWeightForHeight[nearestH];
+        // If 30+ lbs above average for height, nudge up
+        if (weightLbs > avgW + 30 && baseIndex < sizes.length - 1) {
+          baseIndex += 1;
+        }
+        // If 30+ lbs below average for height, nudge down
+        if (weightLbs < avgW - 30 && baseIndex > 0) {
+          baseIndex -= 1;
+        }
+      }
+
+      let shiftedIndex = baseIndex + (FIT_SHIFT[fitPref] || 0);
+      shiftedIndex = Math.max(0, Math.min(shiftedIndex, sizes.length - 1));
+
+      // Confidence: higher if height + weight provided, if result isn't at boundary
+      let confidence = weightLbs ? 0.85 : 0.70;
+      if (shiftedIndex === 0 || shiftedIndex === sizes.length - 1) confidence -= 0.10; // edge sizes less confident
+
+      const fitLabels = { relaxed: 'Relaxed', true: 'Closer Fit', oversized: 'Oversized' };
+
+      return {
+        size: sizes[shiftedIndex],
+        index: shiftedIndex,
+        confidence: Math.max(0.50, Math.min(1.0, confidence)),
+        fitLabel: fitLabels[fitPref],
+        heightBand: heightIn,
+        fitPref: fitPref
+      };
+    }
+
+    // ══════════════════ DOM REFS ══════════════════
+    const overlay = document.getElementById('sizeGuideOverlay');
+    const openBtn = document.getElementById('openSizeGuide');
+    const closeBtn = document.getElementById('closeSizeGuide');
+    const tabs = document.querySelectorAll('.sg-tab');
+    const finder = document.getElementById('sgFinder');
+    const resultCard = document.getElementById('sgResult');
+    const tableView = document.getElementById('sgTableView');
+    const findBtn = document.getElementById('findMySizeBtn');
+    const skipBtn = document.getElementById('skipToTable');
+    const retakeBtn = document.getElementById('retakeQuiz');
+    const selectShopBtn = document.getElementById('selectAndShop');
+    const heightFt = document.getElementById('heightFt');
+    const heightIn = document.getElementById('heightIn');
+    const weightVal = document.getElementById('weightVal');
+    const fitButtons = document.querySelectorAll('.sg-finder__fit');
+    const chipButtons = document.querySelectorAll('.pdp-variant__chip');
+    const countrySelect = document.getElementById('countrySelect');
+    const unitButtons = document.querySelectorAll('.sg-table__unit-btn');
+    const bodyButtons = document.querySelectorAll('.sg-table__body-btn');
+    const wunitButtons = document.querySelectorAll('.sg-finder__weight-unit-btn');
+    const toast = document.getElementById('sizeToast');
+
+    let selectedFit = null;
+    let currentUnit = 'in';
+    let currentCountry = 'us';
+    let currentTab = 'finder';
+    let currentMeasure = 'garment';  // 'garment' or 'body'
+    let currentWeightUnit = 'lbs';
+
+    // ══════════════════ OPEN / CLOSE ══════════════════
+    function openOverlay() {
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => { overlay.scrollTop = overlay.scrollHeight; });
+      trackEvent('size_guide_opened');
+    }
+
+    function closeOverlay() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      trackEvent('size_guide_closed');
+    }
+
+    openBtn.addEventListener('click', openOverlay);
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeOverlay();
+    });
+
+    // ══════════════════ TABS ══════════════════
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        currentTab = tab.dataset.tab;
+
+        finder.classList.toggle('is-visible', currentTab === 'finder' || currentTab === 'result');
+        resultCard.classList.toggle('is-visible', currentTab === 'result');
+        tableView.classList.toggle('is-visible', currentTab === 'table');
+
+        if (currentTab === 'finder') {
+          resultCard.classList.remove('is-visible');
+          finder.classList.add('is-visible');
+        }
+
+        if (currentTab === 'table') {
+          renderTable();
+          trackEvent('size_chart_viewed');
+        }
+      });
+    });
+
+    // ══════════════════ FINDER LOGIC ══════════════════
+    function updateFindBtn() {
+      const hasHeight = heightFt.value && heightIn.value;
+      findBtn.disabled = !(hasHeight && selectedFit);
+    }
+
+    heightFt.addEventListener('change', () => {
+      heightFt.classList.toggle('sg-finder__select--active', heightFt.value !== '');
+      updateFindBtn();
+    });
+    heightIn.addEventListener('change', () => {
+      heightIn.classList.toggle('sg-finder__select--active', heightIn.value !== '');
+      updateFindBtn();
+    });
+
+    // Weight unit toggle
+    wunitButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        wunitButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        currentWeightUnit = btn.dataset.wunit;
+        weightVal.placeholder = currentWeightUnit === 'lbs' ? 'e.g. 160' : 'e.g. 72';
+      });
+    });
+
+    fitButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        fitButtons.forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        selectedFit = btn.dataset.fit;
+        updateFindBtn();
+        trackEvent('fit_preference_selected', { preference: selectedFit });
+      });
+    });
+
+    findBtn.addEventListener('click', () => {
+      const totalInches = (parseInt(heightFt.value) * 12) + parseInt(heightIn.value);
+      const rawWeight = weightVal.value ? parseFloat(weightVal.value) : null;
+      const weightLbs = rawWeight && currentWeightUnit === 'kg' ? rawWeight * 2.205 : rawWeight;
+
+      const rec = recommendSize(totalInches, selectedFit, weightLbs);
+
+      trackEvent('size_recommended', {
+        height: totalInches,
+        weight: rawWeight,
+        weightUnit: currentWeightUnit,
+        fitPreference: selectedFit,
+        recommendedSize: rec.size,
+        confidence: rec.confidence
+      });
+
+      const data = SIZE_DATA.hoodie;
+      const countryKey = currentCountry === 'aus' ? 'aus' : currentCountry;
+      const unitData = data[countryKey][currentUnit];
+      const idx = rec.index;
+      const unitSuffix = currentUnit === 'in' ? '"' : 'cm';
+
+      // Heading + sub with rationale
+      document.getElementById('resultHeading').textContent = `Your size: ${rec.size}`;
+      const heightLabel = `${heightFt.value}'${heightIn.value}"`;
+      const weightLabel = weightLbs ? ` — ${Math.round(weightLbs)} lbs` : '';
+      document.getElementById('resultSub').textContent =
+        `Based on ${heightLabel}${weightLabel} with a ${rec.fitLabel} preference`;
+
+      // Confidence indicator
+      const confPct = Math.round(rec.confidence * 100);
+      document.getElementById('resultConfFill').style.width = `${confPct}%`;
+      if (confPct >= 80) {
+        document.getElementById('resultConfLabel').textContent = 'High confidence';
+        document.getElementById('resultConfFill').style.background = 'var(--cn-green)';
+      } else if (confPct >= 65) {
+        document.getElementById('resultConfLabel').textContent = 'Moderate confidence';
+        document.getElementById('resultConfFill').style.background = 'var(--cn-yellow)';
+      } else {
+        document.getElementById('resultConfLabel').textContent = 'Estimate — try your usual size if unsure';
+        document.getElementById('resultConfFill').style.background = 'var(--cn-orange)';
+      }
+
+      // Size card dimensions
+      document.getElementById('resultSize').textContent = rec.size;
+      document.getElementById('resultSizeLabel').textContent = `Unisex Hoodie — ${rec.fitLabel} (garment measurements)`;
+      document.getElementById('resultLength').textContent = `${unitData.length[idx]}${unitSuffix}`;
+      document.getElementById('resultChest').textContent = `${unitData.chest[idx]}${unitSuffix}`;
+      document.getElementById('resultSleeve').textContent = `${unitData.sleeve[idx]}${unitSuffix}`;
+
+      // Fit notes — clear and honest about oversized design
+      const notes = {
+        relaxed: "This hoodie is designed oversized. For the intended relaxed drape, order your usual size — that's what most people do.",
+        true: "Since the hoodie runs oversized, sizing down 1 gives a closer, more fitted look while still feeling comfortable.",
+        oversized: "Size up 1 for maximum oversized drape and room for layering. This is the looser, cozier end of the fit spectrum."
+      };
+      document.getElementById('resultFitNoteText').textContent = notes[selectedFit];
+
+      // Between sizes guidance
+      const between = {
+        relaxed: "If you're between sizes, stay at your recommended size for the intended looser fit, or size down 1 if you prefer less drape.",
+        true: "If you're between sizes, go with the smaller size for a closer fit. The hoodie's oversized design means sizing down still feels roomy.",
+        oversized: "If you're between sizes, go with the larger size for maximum drape and layering room. You can always cuff the sleeves."
+      };
+      document.getElementById('resultBetweenText').textContent = between[selectedFit];
+
+      // Model references with diverse body types
+      const modelsWrap = document.getElementById('resultModels');
+      modelsWrap.innerHTML = '';
+      MODEL_REFERENCES.forEach(m => {
+        const isHighlighted = m.size === rec.size;
+        modelsWrap.innerHTML += `
+          <div class="sg-result__model ${isHighlighted ? 'is-highlighted' : ''}">
+            <div class="sg-result__model-img">
+              <img src="${m.img}" alt="${m.label} model wearing size ${m.size}" loading="lazy">
+            </div>
+            <div class="sg-result__model-label">
+              Size ${m.size}
+              <div class="sg-result__model-detail">${m.height}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Show result, hide finder
+      finder.classList.remove('is-visible');
+      resultCard.classList.add('is-visible');
+      currentTab = 'result';
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tabs[0].classList.add('is-active');
+      tabs[0].textContent = '← Retake';
+    });
+
+    skipBtn.addEventListener('click', () => {
+      currentTab = 'table';
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tabs[1].classList.add('is-active');
+      finder.classList.remove('is-visible');
+      resultCard.classList.remove('is-visible');
+      tableView.classList.add('is-visible');
+      renderTable();
+      trackEvent('size_chart_skipped_to');
+    });
+
+    retakeBtn.addEventListener('click', () => {
+      currentTab = 'finder';
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tabs[0].classList.add('is-active');
+      tabs[0].textContent = 'Find My Size';
+      resultCard.classList.remove('is-visible');
+      finder.classList.add('is-visible');
+      selectedFit = null;
+      fitButtons.forEach(b => b.classList.remove('is-selected'));
+      heightFt.value = '';
+      heightIn.value = '';
+      weightVal.value = '';
+      heightFt.classList.remove('sg-finder__select--active');
+      heightIn.classList.remove('sg-finder__select--active');
+      findBtn.disabled = true;
+      trackEvent('size_guide_retaken');
+    });
+
+    selectShopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const resultSize = document.getElementById('resultSize').textContent;
+      chipButtons.forEach(c => {
+        c.classList.remove('pdp-variant__chip--active');
+        if (c.dataset.size === resultSize) {
+          c.classList.add('pdp-variant__chip--active');
+          document.getElementById('selectedSize').textContent = resultSize;
+        }
+      });
+      toast.textContent = `Size ${resultSize} selected! ✓`;
+      toast.classList.add('is-showing');
+      setTimeout(() => toast.classList.remove('is-showing'), 2000);
+      closeOverlay();
+      trackEvent('size_selected_from_guide', { size: resultSize });
+    });
+
+    // ══════════════════ SIZE CHART TABLE ══════════════════
+    function renderTable(highlightSize) {
+      const data = SIZE_DATA.hoodie;
+      const bodyData = BODY_DATA.hoodie;
+      const unitLabel = currentUnit === 'in' ? 'in' : 'cm';
+      const unitSuffix = currentUnit === 'in' ? '"' : 'cm';
+      const countryLabel = { us: 'US', uk: 'UK', aus: 'AUS' }[currentCountry];
+      const countryKey = currentCountry === 'aus' ? 'aus' : currentCountry;
+
+      let html;
+      if (currentMeasure === 'body') {
+        // Body measurements table
+        const bData = bodyData[countryKey][currentUnit];
+        html = `
+          <thead>
+            <tr>
+              <th>Size ${countryLabel}</th>
+              <th><span class="sg-th-chest">Chest</span></th>
+              <th><span class="sg-th-length">Waist</span></th>
+              <th><span class="sg-th-sleeve">Hip</span></th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+        data.sizes.forEach((size, i) => {
+          const isHighlight = highlightSize && size === highlightSize;
+          html += `
+            <tr class="${isHighlight ? 'sg-row-highlight' : ''}">
+              <td>${size}</td>
+              <td>${bData.chest[i]}${unitSuffix}</td>
+              <td>${bData.waist[i]}${unitSuffix}</td>
+              <td>${bData.hip[i]}${unitSuffix}</td>
+            </tr>
+          `;
+        });
+      } else {
+        // Garment measurements table (original)
+        const unitData = data[countryKey][currentUnit];
+        html = `
+          <thead>
+            <tr>
+              <th>Size ${countryLabel}</th>
+              <th><span class="sg-th-length">Length</span></th>
+              <th><span class="sg-th-chest">Chest</span></th>
+              <th><span class="sg-th-sleeve">Sleeve</span></th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+        data.sizes.forEach((size, i) => {
+          const isHighlight = highlightSize && size === highlightSize;
+          html += `
+            <tr class="${isHighlight ? 'sg-row-highlight' : ''}">
+              <td>${size}</td>
+              <td>${unitData.length[i]}${unitSuffix}</td>
+              <td>${unitData.chest[i]}${unitSuffix}</td>
+              <td>${unitData.sleeve[i]}${unitSuffix}</td>
+            </tr>
+          `;
+        });
+      }
+
+      html += '</tbody>';
+      document.getElementById('sizeTable').innerHTML = html;
+    }
+
+    // Country selector
+    countrySelect.addEventListener('change', (e) => {
+      currentCountry = e.target.value;
+      renderTable();
+    });
+
+    // Unit toggle
+    unitButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        unitButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        currentUnit = btn.dataset.unit;
+        renderTable();
+      });
+    });
+
+    // Body vs Garment toggle
+    bodyButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        bodyButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        currentMeasure = btn.dataset.measure;
+        renderTable();
+        trackEvent('measure_type_switched', { type: currentMeasure });
+      });
+    });
+
+    // PDP chip click (mock)
+    chipButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        chipButtons.forEach(b => b.classList.remove('pdp-variant__chip--active'));
+        btn.classList.add('pdp-variant__chip--active');
+        document.getElementById('selectedSize').textContent = btn.dataset.size;
+        trackEvent('size_chip_selected', { size: btn.dataset.size });
+      });
+    });
+
+    // Initialize
+    renderTable();
+  </script>
+
+  <!-- Sticky PDP size bar (appears after scrolling past the size selector) -->
+  <div class="pdp-sticky-bar" id="stickyBar">
+    <div class="pdp-sticky-bar__size">Size: <span id="stickySize">M</span></div>
+    <button class="pdp-sticky-bar__help" id="stickySizeHelp">Not sure? Find your size</button>
+    <button class="pdp-sticky-bar__atc">Add to Cart</button>
+  </div>
+
+  <script>
+    const stickyBar = document.getElementById('stickyBar');
+    const stickySizeHelp = document.getElementById('stickySizeHelp');
+    const stickySize = document.getElementById('stickySize');
+    const selectedSizeEl = document.getElementById('selectedSize');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) stickyBar.classList.add('is-visible');
+      else stickyBar.classList.remove('is-visible');
+    });
+
+    const observer = new MutationObserver(() => {
+      stickySize.textContent = selectedSizeEl.textContent;
+    });
+    observer.observe(selectedSizeEl, { childList: true, characterData: true, subtree: true });
+
+    stickySizeHelp.addEventListener('click', openOverlay);
+  </script>
+</body>
+</html>
