@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+      Keep this page out of search results.
+      This is page-level protection and does not make the page private.
+    -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <title>Community Lp V1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 14px; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.5;
+            color: #111;
+            background: #fff;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 52px 0; }
+        .section-alt { background: #f8f8f8; }
+        .section-dark { background: #111; color: #fff; }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            line-height: 1.3;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        p { font-size: 1rem; color: #444; margin-bottom: 12px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: #111;
+            color: #fff;
+        }
+        .btn-primary:hover { background: #333; transform: translateY(-1px); }
+        .btn-large { padding: 18px 40px; font-size: 1.1rem; }
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(17,17,17,0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(17,17,17,0); }
+        }
+
+        /* Announcement Bar */
+        .announcement-bar {
+            background: #dc2626;
+            color: #fff;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .announcement-bar span { opacity: 0.95; }
+
+        /* Hero */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .hero-text { max-width: 520px; }
+        .hero-eyebrow {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #111;
+            color: #fff;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 18px;
+        }
+        .hero-subheadline {
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 28px;
+            line-height: 1.55;
+        }
+        .hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+        .hero-trust {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .hero-trust span { display: flex; align-items: center; gap: 6px; }
+        .hero-visual {
+            background: #e0e0e0;
+            border-radius: 16px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Social Proof Bar */
+        .social-bar {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .social-bar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+        }
+        .avatar-stack .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ddd;
+            border: 3px solid #fff;
+            margin-left: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #666;
+        }
+        .avatar-stack .avatar:first-child { margin-left: 0; }
+        .social-bar-text {
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+        }
+        .social-bar-text strong { color: #111; }
+
+        /* Pattern Interrupt / Problem */
+        .problem-section { text-align: center; }
+        .problem-section h2 { max-width: 600px; margin: 0 auto 16px; }
+        .problem-section > p { max-width: 540px; margin: 0 auto 40px; }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .problem-card {
+            padding: 28px 24px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+        .problem-card-icon {
+            width: 44px;
+            height: 44px;
+            background: #111;
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        .problem-card h3 { font-size: 1.1rem; }
+        .problem-card p { font-size: 0.92rem; color: #555; margin-bottom: 0; }
+
+        /* Inside The Club */
+        .club-header { text-align: center; max-width: 640px; margin: 0 auto 44px; }
+        .club-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .club-card {
+            padding: 28px 24px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+        }
+        .club-card:hover {
+            border-color: #111;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .club-card-icon {
+            width: 44px;
+            height: 44px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+        .club-card h3 { font-size: 1.05rem; }
+        .club-card p { font-size: 0.9rem; color: #555; margin-bottom: 0; }
+
+        /* Pro Help Banner */
+        .pro-banner {
+            background: #111;
+            border-radius: 14px;
+            padding: 32px;
+            color: #fff;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+            margin-top: 24px;
+        }
+        .pro-banner h3 { color: #fff; font-size: 1.3rem; }
+        .pro-banner p { color: #aaa; font-size: 0.92rem; margin-bottom: 0; }
+        .pro-avatars {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pro-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #888;
+        }
+        .pro-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* Community Wall */
+        .wall-header { text-align: center; margin-bottom: 40px; }
+        .wall-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .wall-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            padding: 20px;
+        }
+        .wall-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .wall-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #666;
+        }
+        .wall-meta { font-size: 0.8rem; }
+        .wall-name { font-weight: 600; color: #111; }
+        .wall-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            color: #666;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 4px;
+        }
+        .wall-text {
+            font-size: 0.92rem;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .wall-reactions {
+            display: flex;
+            gap: 12px;
+            font-size: 0.78rem;
+            color: #888;
+        }
+        .wall-reactions span { display: flex; align-items: center; gap: 4px; }
+
+        /* Inclusivity / FOMO Section */
+        .fomo-section { text-align: center; }
+        .fomo-section h2 { margin-bottom: 8px; }
+        .fomo-section > p { max-width: 560px; margin: 0 auto 36px; color: #aaa; }
+        .neuro-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto 36px;
+        }
+        .neuro-tag {
+            padding: 10px 18px;
+            border: 1px solid #333;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            color: #ccc;
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+        .neuro-tag:hover {
+            background: #fff;
+            color: #111;
+            border-color: #fff;
+        }
+        .fomo-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .fomo-stat { text-align: center; }
+        .fomo-stat-number {
+            font-size: clamp(2.25rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+        }
+        .fomo-stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Offer Section */
+        .offer-section { text-align: center; }
+        .offer-box {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px 32px;
+            border: 2px solid #111;
+            position: relative;
+        }
+        .offer-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #dc2626;
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .offer-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 24px;
+        }
+        .offer-old {
+            font-size: 1.5rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .offer-new {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111;
+        }
+        .offer-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+            max-width: 360px;
+            margin: 0 auto 28px;
+        }
+        .offer-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.92rem;
+            color: #444;
+        }
+        .offer-feature::before {
+            content: "✓";
+            width: 22px;
+            height: 22px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .offer-guarantee {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 16px;
+        }
+
+        /* Timer */
+        .timer-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .timer-unit {
+            text-align: center;
+        }
+        .timer-number {
+            width: 56px;
+            height: 56px;
+            background: #111;
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .timer-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* FAQ */
+        .faq-header { text-align: center; margin-bottom: 36px; }
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #eee; }
+        .faq-question {
+            width: 100%;
+            padding: 22px 0;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #111;
+        }
+        .faq-answer {
+            padding-bottom: 22px;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        /* Final CTA */
+        .final-cta { text-align: center; }
+        .final-cta h2 { margin-bottom: 12px; }
+        .final-cta p { max-width: 520px; margin: 0 auto 28px; }
+
+        /* Footer */
+        .site-footer {
+            background: #fff;
+            border-top: 1px solid #eee;
+            padding: 28px 0;
+            text-align: center;
+        }
+        .site-footer p {
+            font-size: 0.78rem;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { min-height: auto; padding: 48px 0; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+            .hero-text { max-width: 100%; order: 2; }
+            .hero-visual { order: 1; aspect-ratio: 16/10; }
+            .hero-cta-group { justify-content: center; }
+            .pro-banner { grid-template-columns: 1fr; text-align: center; }
+            .section { padding: 40px 0; }
+            .timer-number { width: 48px; height: 48px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================== SECTION 1: ANNOUNCEMENT BAR ===================== -->
+    <!-- Purpose: Pattern interrupt. Stops the scroll. Creates urgency before they see anything else. -->
+    <div class="announcement-bar">
+        <span>⏰ Next 24 Hours Only - Join Cloud Nine Club Free For Life (Normally $50/yr) &nbsp;•&nbsp; No Credit Card Required</span>
+    </div>
+
+    <!-- ===================== SECTION 2: HERO ===================== -->
+    <!-- Purpose: Make them feel "seen" in 3 seconds. Lead with identity, not features. -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-eyebrow">The World's Biggest Neurodivergent Club</div>
+                    <h1>A Club Built For Brains Like Yours</h1>
+                    <p class="hero-subheadline">
+                        Join <strong>50,000+</strong> neurodivergent people who finally feel understood.
+                        No explaining. No masking. No judgment.<br>
+                        Just a safe space where you can rant, connect, and feel normal for once.
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="#offer" class="btn btn-primary btn-large btn-pulse">Claim My Free Spot</a>
+                    </div>
+                    <div class="hero-trust">
+                        <span>✓ Free forever (next 24h)</span>
+                        <span>✓ No credit card</span>
+                        <span>✓ Cancel anytime</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    [Hero Visual: Diverse group illustration / community screenshot / abstract "connected nodes" art]
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 3: SOCIAL PROOF BAR ===================== -->
+    <!-- Purpose: Credibility before they read a word. Numbers + faces = real. -->
+    <section class="social-bar">
+        <div class="container">
+            <div class="social-bar-inner">
+                <div class="avatar-stack">
+                    <div class="avatar">A</div>
+                    <div class="avatar">M</div>
+                    <div class="avatar">J</div>
+                    <div class="avatar">S</div>
+                    <div class="avatar">R</div>
+                </div>
+                <div class="social-bar-text">
+                    <strong>50,000+ Cloudies</strong> are already inside &nbsp;•&nbsp; ADHD, Autism, Anxiety & more
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 4: PATTERN INTERRUPT ===================== -->
+    <!-- Purpose: Qualify the reader. "This is for you if you've felt this." Mirror their pain. -->
+    <section class="section problem-section">
+        <div class="container">
+            <h2>Tired of Spaces Where You Have to Explain Yourself?</h2>
+            <p>Most "mental health" communities are built by neurotypicals. You join hoping to feel understood, and end up educating everyone else. Not here.</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-card-icon">😶</div>
+                    <h3>You mask all day</h3>
+                    <p>At work, at school, even with family. You're exhausted from pretending to be "fine." You need a place to drop the act.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-card-icon">🔄</div>
+                    <h3>You feel totally alone</h3>
+                    <p>Your friends don't get why you're overwhelmed by "simple" things. You want to talk to people who actually live it.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-card-icon">😰</div>
+                    <h3>You're scared to be judged</h3>
+                    <p>Everywhere you share, someone tells you to "just relax" or "try harder." You need a space where your brain isn't broken. It's just different.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 5: INSIDE THE CLUB ===================== -->
+    <!-- Purpose: What's in it for me? Lead with emotional benefits, not features. -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="club-header">
+                <h2>Inside The Club</h2>
+                <p>This isn't another generic Discord server. It's a real community built for how neurodivergent people actually think, feel, and connect.</p>
+            </div>
+            <div class="club-grid">
+                <div class="club-card">
+                    <div class="club-card-icon">💬</div>
+                    <h3>Talk to people who actually understand you</h3>
+                    <p>No more explaining your meltdowns, your hyperfocus, or why you need to stim. Everyone here gets it. Instantly.</p>
+                </div>
+                <div class="club-card">
+                    <div class="club-card-icon">📝</div>
+                    <h3>Share things you normally keep to yourself</h3>
+                    <p>Rant about your day. Post your wins. Vent about things only we would understand. This is your safe space.</p>
+                </div>
+                <div class="club-card">
+                    <div class="club-card-icon">❓</div>
+                    <h3>Ask questions without feeling judged</h3>
+                    <p>"Is this an ADHD thing or am I just weird?" You'll get 200 replies saying "same." That's the whole point.</p>
+                </div>
+                <div class="club-card">
+                    <div class="club-card-icon">🧠</div>
+                    <h3>Learn how others deal with the same thoughts</h3>
+                    <p>Real coping strategies from real people. What's working today. What's not. No textbook advice. Just lived experience.</p>
+                </div>
+                <div class="club-card">
+                    <div class="club-card-icon">🤗</div>
+                    <h3>Feel normal for once</h3>
+                    <p>For the first time, you'll be in a room where your brain isn't the odd one out. It's the default. That's the feeling.</p>
+                </div>
+            </div>
+
+            <!-- Pro Help Banner -->
+            <!-- Purpose: Remove the "peer support isn't enough" objection. Adds serious credibility. -->
+            <div class="pro-banner">
+                <div>
+                    <h3>Real Professionals Are In Here Too</h3>
+                    <p>Licensed therapists, ADHD coaches, autism advocates, and neurodivergent mentors host regular Q&As, workshops, and drop in just to chat. So when you need actual advice - not just "same" - it's right there.</p>
+                </div>
+                <div class="pro-avatars">
+                    <div class="pro-avatar">T</div>
+                    <div class="pro-avatar">C</div>
+                    <div class="pro-avatar">A</div>
+                    <div class="pro-label">30+ verified therapists<br>& coaches in the club</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 6: COMMUNITY WALL (FOMO) ===================== -->
+    <!-- Purpose: Make it feel alive. Show real posts so they think "I want to be part of this." -->
+    <section class="section">
+        <div class="container">
+            <div class="wall-header">
+                <h2>What People Are Saying Inside</h2>
+                <p>Real posts from real members. This is what you're missing.</p>
+            </div>
+            <div class="wall-grid">
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">S</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Sarah M.</span>
+                            <span class="wall-tag">ADHD + Anxiety</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"I just spent 20 minutes ranting about how loud the grocery store was and 40 people replied with their own stories. I almost cried. I've never felt this understood."</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 127</span>
+                        <span>💬 43 replies</span>
+                    </div>
+                </div>
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">J</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Jordan T.</span>
+                            <span class="wall-tag">Autism</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"The therapist Q&A last night answered questions I've been too scared to ask my own doctor. For free. In a group where nobody judged me. What??"</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 89</span>
+                        <span>💬 22 replies</span>
+                    </div>
+                </div>
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">A</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Alex K.</span>
+                            <span class="wall-tag">OCD + Anxiety</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"I posted at 3am during a spiral and 12 people were online to talk me through it. Who does that?? Cloudies do."</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 215</span>
+                        <span>💬 67 replies</span>
+                    </div>
+                </div>
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">R</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Riley P.</span>
+                            <span class="wall-tag">ADHD</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"My therapist actually recommended this club to me. She said the peer support here is better than any group she can refer me to locally. She wasn't wrong."</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 156</span>
+                        <span>💬 31 replies</span>
+                    </div>
+                </div>
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">M</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Morgan L.</span>
+                            <span class="wall-tag">Autism + Anxiety</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"I didn't say a word for my first two weeks. Just read. And somehow that was enough. Nobody pressured me. Now I post every day. This place changed how I see myself."</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 342</span>
+                        <span>💬 89 replies</span>
+                    </div>
+                </div>
+                <div class="wall-card">
+                    <div class="wall-card-header">
+                        <div class="wall-avatar">K</div>
+                        <div class="wall-meta">
+                            <span class="wall-name">Kai D.</span>
+                            <span class="wall-tag">PTSD + ADHD</span>
+                        </div>
+                    </div>
+                    <div class="wall-text">"The 'Rant Room' channel is the best thing on the internet. No advice unless you ask. No 'have you tried yoga?' Just people listening. Feels like a weighted blanket for your brain."</div>
+                    <div class="wall-reactions">
+                        <span>❤️ 198</span>
+                        <span>💬 54 replies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 7: FOMO / INCLUSIVITY ===================== -->
+    <!-- Purpose: Massive FOMO. Show every neurotype so no one feels excluded. Make them feel like EVERYONE is already inside. -->
+    <section class="section section-dark fomo-section">
+        <div class="container">
+            <h2>Everyone's Already Inside</h2>
+            <p>Whatever makes your brain different. You're not the only one here. And you're not the odd one out.</p>
+            <div class="neuro-tags">
+                <span class="neuro-tag">ADHD</span>
+                <span class="neuro-tag">Autism</span>
+                <span class="neuro-tag">Anxiety</span>
+                <span class="neuro-tag">OCD</span>
+                <span class="neuro-tag">PTSD</span>
+                <span class="neuro-tag">Bipolar</span>
+                <span class="neuro-tag">Tourette's</span>
+                <span class="neuro-tag">Dyslexia</span>
+                <span class="neuro-tag">Dyscalculia</span>
+                <span class="neuro-tag">Dyspraxia</span>
+                <span class="neuro-tag">Sensory Processing</span>
+                <span class="neuro-tag">Hyperlexia</span>
+                <span class="neuro-tag">Auditory Processing</span>
+                <span class="neuro-tag">Rejection Sensitive</span>
+                <span class="neuro-tag">Executive Dysfunction</span>
+                <span class="neuro-tag">Stimming</span>
+                <span class="neuro-tag">Masking</span>
+                <span class="neuro-tag">Unsure Yet</span>
+            </div>
+            <div class="fomo-stats">
+                <div class="fomo-stat">
+                    <div class="fomo-stat-number">50,000+</div>
+                    <div class="fomo-stat-label">Members</div>
+                </div>
+                <div class="fomo-stat">
+                    <div class="fomo-stat-number">1,200+</div>
+                    <div class="fomo-stat-label">Conversations Today</div>
+                </div>
+                <div class="fomo-stat">
+                    <div class="fomo-stat-number">30+</div>
+                    <div class="fomo-stat-label">Pro Therapists</div>
+                </div>
+                <div class="fomo-stat">
+                    <div class="fomo-stat-number">24/7</div>
+                    <div class="fomo-stat-label">Someone's Always Online</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 8: THE OFFER ===================== -->
+    <!-- Purpose: Conversion trigger. Price anchor + urgency + zero risk. This is where the decision happens. -->
+    <section class="section section-alt offer-section" id="offer">
+        <div class="container">
+            <h2>Join Free For Life</h2>
+            <p style="max-width: 480px; margin: 0 auto 36px;">Cloud Nine Club is normally $50/year. For the next 24 hours, we're waiving the fee completely. Once you're in, you're in forever.</p>
+
+            <!-- Countdown Timer -->
+            <div class="timer-bar">
+                <div class="timer-unit">
+                    <div class="timer-number" id="timerHours">23</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-unit">
+                    <div class="timer-number" id="timerMinutes">59</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-unit">
+                    <div class="timer-number" id="timerSeconds">59</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+
+            <div class="offer-box">
+                <div class="offer-badge">🔥 24-Hour Flash Access</div>
+                <div class="offer-price">
+                    <span class="offer-old">$50/yr</span>
+                    <span class="offer-new">FREE</span>
+                </div>
+                <div class="offer-features">
+                    <div class="offer-feature">Full access to all community channels</div>
+                    <div class="offer-feature">Weekly therapist & coach Q&As</div>
+                    <div class="offer-feature">Member-only workshops & events</div>
+                    <div class="offer-feature">Private "Rant Room" & safe spaces</div>
+                    <div class="offer-feature">Early access to Cloud Nine drops</div>
+                    <div class="offer-feature">Free for life - no future payments</div>
+                </div>
+                <a href="#" class="btn btn-primary btn-large btn-pulse" style="width: 100%;">Claim My Free Spot - Join 50,000+ Cloudies</a>
+                <div class="offer-guarantee">
+                    ✓ No credit card required &nbsp;•&nbsp; ✓ Instant access &nbsp;•&nbsp; ✓ Unsubscribe anytime
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 9: FAQ ===================== -->
+    <!-- Purpose: Remove last-minute objections before they bounce. -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-header">
+                <h2>Questions You Might Have</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is this really free? What's the catch?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        No catch. We're opening the club to as many neurodivergent people as possible during this 24-hour window. Sign up now and you get lifetime access for $0. We won't ask for a credit card. We won't bill you later. Ever.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What if I'm not officially diagnosed?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        You don't need a diagnosis to join. If you suspect you're neurodivergent, if you're self-diagnosed, if you're questioning. You're welcome here. We have a channel specifically for people figuring things out. No gatekeeping.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Are the therapists actually qualified?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. Every therapist, coach, and professional in the club is verified. We check licenses and credentials. They host scheduled Q&A sessions and workshops. They're not just random people giving advice. Think of it as a bonus perk, not a replacement for your own care.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is it a safe space? How do you moderate?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        We moderate 24/7. Zero tolerance for bullying, gaslighting, or "just try harder" energy. We have trained neurodivergent moderators who actually understand the community. There's also a "Rant Room" where advice is opt-in only, so you can vent without getting unsolicited fixes.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What happens after the 24 hours?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        The free-for-life offer closes and the club returns to its normal $50/year membership. If you sign up during this window, you're locked in forever at $0. If you wait, you'll pay. That's the whole urgency.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Do I have to talk? Can I just lurk?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Lurkers are welcome. Seriously. Read for a week, a month, a year. No pressure to post. A lot of our members started as lurkers. The space is yours to use however you need it.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SECTION 10: FINAL CTA ===================== -->
+    <!-- Purpose: One last chance to convert. Restate the core emotional promise. -->
+    <section class="section section-alt final-cta">
+        <div class="container">
+            <h2>You Don't Have to Do This Alone Anymore</h2>
+            <p>50,000+ people who get it are one click away. Your safe space. Your people. Free for life, but only for the next 24 hours.</p>
+            <a href="#" class="btn btn-primary btn-large btn-pulse">Claim My Free Spot Now</a>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                Cloud Nine Club is a peer support community, not a medical or mental health service. 
+                The therapists and coaches in our community provide educational support and general guidance, not clinical treatment or diagnosis. 
+                If you are in crisis, please contact a licensed professional or emergency services.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // FAQ Toggle
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const isOpen = answer.style.display === 'block';
+            answer.style.display = isOpen ? 'none' : 'block';
+            btn.querySelector('span').textContent = isOpen ? '+' : '−';
+        }
+
+        // Simple countdown timer (24 hours from page load)
+        let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+        function updateTimer() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('timerMinutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('timerSeconds').textContent = String(seconds).padStart(2, '0');
+            if (timeLeft > 0) timeLeft--;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+
+</body>
+</html>
